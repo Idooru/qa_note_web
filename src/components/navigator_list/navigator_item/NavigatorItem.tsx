@@ -1,11 +1,13 @@
 import type { FC } from "react";
 import style from "./NavigatorItem.module.css";
 import { useNavigate } from "react-router-dom";
+import type { IconType } from "react-icons";
 
 export interface NavItems {
   title: string;
   route: string;
   isSelected: boolean;
+  icon?: IconType;
 }
 
 export interface NavigatorItemProps {
@@ -19,6 +21,8 @@ const NavigatorItem: FC<NavigatorItemProps> = ({ item }) => {
     navigate(item.route);
   };
 
+  const Icon = item.icon;
+
   return (
     <li
       onClick={handleClickNav}
@@ -26,6 +30,7 @@ const NavigatorItem: FC<NavigatorItemProps> = ({ item }) => {
         item.isSelected ? style.selected_item : ""
       }`}
     >
+      <span className={style.icon_area}>{Icon && <Icon size={20} />}</span>
       {item.title}
     </li>
   );

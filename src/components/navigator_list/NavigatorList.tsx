@@ -3,13 +3,23 @@ import "../../app/index.css";
 import NavigatorItem, { type NavItems } from "./navigator_item/NavigatorItem";
 import style from "./NavigatorList.module.css";
 import { useLocation } from "react-router-dom";
+import { FaTasks } from "react-icons/fa";
+import { MdBugReport } from "react-icons/md";
+import { GiStabbedNote } from "react-icons/gi";
+import { FaStickyNote } from "react-icons/fa";
+import { FaLightbulb } from "react-icons/fa";
 
 const _navItems: Array<NavItems> = [
-  { title: "Task", route: "/task", isSelected: true },
-  { title: "Report", route: "/report", isSelected: false },
-  { title: "Summary", route: "/summary", isSelected: false },
-  { title: "Memo", route: "/memo", isSelected: false },
-  { title: "Idea", route: "/idea", isSelected: false },
+  { title: "Task", route: "/task", isSelected: true, icon: FaTasks },
+  { title: "Report", route: "/report", isSelected: false, icon: MdBugReport },
+  {
+    title: "Summary",
+    route: "/summary",
+    isSelected: false,
+    icon: GiStabbedNote,
+  },
+  { title: "Memo", route: "/memo", isSelected: false, icon: FaStickyNote },
+  { title: "Idea", route: "/idea", isSelected: false, icon: FaLightbulb },
 ];
 const NavigatorList: FC = () => {
   const location = useLocation();

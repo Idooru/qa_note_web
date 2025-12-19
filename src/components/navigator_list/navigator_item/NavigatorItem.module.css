@@ -4,12 +4,19 @@
 }
 
 .navigator_item {
-  padding: 8px 8px 8px 12px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
   margin-bottom: 5px;
   cursor: pointer;
+  color: #494949;
 }
 
 .navigator_item:hover {
   background-color: #d3d3d3;
   border-radius: 5px;
+}
+
+.icon_area {
+  margin-right: 8px;
 }
