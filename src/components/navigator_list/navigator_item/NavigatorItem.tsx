@@ -1,25 +1,22 @@
 import type { FC } from "react";
 import style from "./NavigatorItem.module.css";
-import type { NavItems } from "../../../app/page";
+import { useNavigate } from "react-router-dom";
+
+export interface NavItems {
+  title: string;
+  route: string;
+  isSelected: boolean;
+}
 
 export interface NavigatorItemProps {
   item: NavItems;
-  index: number;
-  setNavItemsFn: React.Dispatch<React.SetStateAction<NavItems[]>>;
 }
 
-const NavigatorItem: FC<NavigatorItemProps> = ({
-  item,
-  index,
-  setNavItemsFn,
-}) => {
+const NavigatorItem: FC<NavigatorItemProps> = ({ item }) => {
+  const navigate = useNavigate();
+
   const handleClickNav = () => {
-    setNavItemsFn((navItems) =>
-      navItems.map((navItem, i) => ({
-        ...navItem,
-        isSelected: i === index, // 클릭한 것만 true
-      }))
-    );
+    navigate(item.route);
   };
 
   return (

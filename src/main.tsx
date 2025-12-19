@@ -1,9 +1,12 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
-import Page from "./app/page";
+import Main from "./app/Main";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Page />
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
   </StrictMode>
 );
