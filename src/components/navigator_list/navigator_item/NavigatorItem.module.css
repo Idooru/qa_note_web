@@ -1,0 +1,15 @@
+.selected_item {
+  background-color: #d3d3d3;
+  border-radius: 5px;
+}
+
+.navigator_item {
+  padding: 8px 8px 8px 12px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.navigator_item:hover {
+  background-color: #d3d3d3;
+  border-radius: 5px;
+}

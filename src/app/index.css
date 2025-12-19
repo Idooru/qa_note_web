@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.margin_10 {
+  margin: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main_text_color {
+  color: #373737;
+}
+
+.sub_text_color {
+  color: #868686;
+}
+
+#page {
+  background-color: #e2e2e2;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+#nav {
+  margin: 10px 17px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex: auto;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid #b1b1b1;
+}
