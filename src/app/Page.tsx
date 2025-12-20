@@ -7,7 +7,7 @@ interface PageProps {
 
 const Page: FC<PageProps> = ({ children }) => {
   return (
-    <main id="page" className="margin_10">
+    <main id="page" className="margin_10 main_border">
       {children}
     </main>
   );

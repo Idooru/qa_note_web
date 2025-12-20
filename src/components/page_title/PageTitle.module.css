@@ -1,0 +1,14 @@
+.title {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+
+.today_date {
+  font-size: 14px;
+  margin-left: 10px;
+  transform: translateY(2px);
+}

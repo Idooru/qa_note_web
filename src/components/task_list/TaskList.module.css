@@ -1,0 +1,46 @@
+.task_list_header {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.task_id_col {
+  width: 20px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.task_title_col {
+  flex: auto;
+}
+
+.task_type_col {
+  width: 200px;
+  text-align: center;
+}
+
+.task_start_date_col {
+  width: 120px;
+  text-align: center;
+}
+
+.task_complete_col {
+  width: 110px;
+  text-align: center;
+}
+
+.task_scroll_col {
+  width: 20px;
+}
+
+.task_list_body {
+  height: 78vh;
+  padding: 0px 3px 0px 0px;
+  overflow-y: auto;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+  scrollbar-gutter: stable;
+}

@@ -22,6 +22,10 @@
   color: #868686;
 }
 
+.main_border {
+  border: 1px solid #b1b1b1;
+}
+
 #main {
   background-color: #e2e2e2;
   height: 100vh;
@@ -41,5 +45,4 @@
   background-color: white;
   border-radius: 15px;
   padding: 10px;
-  border: 1px solid #b1b1b1;
 }

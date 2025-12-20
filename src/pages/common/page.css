@@ -1,0 +1,15 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 10px 10px;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+}
