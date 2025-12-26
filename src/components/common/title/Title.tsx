@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import "../../app/index.css";
+import "../../../app/index.css";
 import style from "./Title.module.css";
 
 interface TitleProps {

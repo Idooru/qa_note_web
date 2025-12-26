@@ -7,6 +7,7 @@ import Report from "../pages/Report/Report";
 import Summary from "../pages/Summary/Summary";
 import Memo from "../pages/Memo/Memo";
 import Idea from "../pages/Idea/Idea";
+import CreateTaskPage from "../pages/TaskPage/create_task_page/CreateTaskPage";
 
 const Main = () => {
   return (
@@ -15,7 +16,9 @@ const Main = () => {
       <Page>
         <Routes>
           <Route path="/" element={<Navigate to="/task" replace />} />
-          <Route path="/task" element={<TaskPage />} />
+          <Route path="/task" element={<TaskPage />}>
+            <Route path="create-task" element={<CreateTaskPage />} />
+          </Route>
           <Route path="/report" element={<Report />} />
           <Route path="/summary" element={<Summary />} />
           <Route path="/memo" element={<Memo />} />

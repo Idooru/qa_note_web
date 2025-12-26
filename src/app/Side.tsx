@@ -1,5 +1,5 @@
-import Title from "../components/title/Title";
-import NavigatorList from "../components/navigator_list/NavigatorList";
+import Title from "../components/common/title/Title";
+import NavigatorList from "../components/nav/navigator_list/NavigatorList";
 import "./index.css";
 import type { FC } from "react";
 

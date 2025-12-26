@@ -1,7 +1,8 @@
 export interface Task {
-  id: number;
+  id?: number;
   title: string;
   type:
+    | ""
     | "regression test"
     | "jira done"
     | "report"
@@ -11,6 +12,17 @@ export interface Task {
   startDate: string;
   complete: boolean;
 }
+
+export type TaskType = Task["type"];
+
+export const taskTypes: TaskType[] = [
+  "regression test",
+  "jira done",
+  "report",
+  "update",
+  "test case",
+  "etc",
+];
 
 export const tasks: Task[] = [
   {

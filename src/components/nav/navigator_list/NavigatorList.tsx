@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import "../../app/index.css";
+import "../../../app/index.css";
 import NavigatorItem, { type NavItems } from "./navigator_item/NavigatorItem";
 import style from "./NavigatorList.module.css";
 import { useLocation } from "react-router-dom";

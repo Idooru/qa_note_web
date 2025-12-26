@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import { useToday } from "../../hooks/useToday";
-import "../../app/index.css";
+import { useToday } from "../../../hooks/useToday";
+import "../../../app/index.css";
 import style from "./PageTitle.module.css";
 
 interface PageTitleProps {

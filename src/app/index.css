@@ -26,6 +26,11 @@
   border: 1px solid #b1b1b1;
 }
 
+.line_none {
+  border: none;
+  outline: none;
+}
+
 #main {
   background-color: #e2e2e2;
   height: 100vh;

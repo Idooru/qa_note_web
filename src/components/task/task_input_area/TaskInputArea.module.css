@@ -1,0 +1,15 @@
+.task_input_area {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: auto;
+  background-color: white;
+  box-shadow: 5px 5px 10px rgb(129, 129, 129);
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.title {
+  margin-bottom: 5px;
+}

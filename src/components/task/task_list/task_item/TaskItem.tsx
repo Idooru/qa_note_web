@@ -1,9 +1,9 @@
 import type { FC } from "react";
-import type { Task } from "../../../data/task_data";
 import style from "./TaskItem.module.css";
-import "../../../app/index.css";
+import "../../../../app/index.css";
 import { MdDone } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
+import type { Task } from "../../../../data/task_data";
 
 interface TaskItemProps {
   task: Task;
