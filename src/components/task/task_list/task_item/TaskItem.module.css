@@ -16,6 +16,11 @@
   background-color: rgb(232, 232, 232);
 }
 
+.task_item_area_dragging {
+  background-color: rgb(192, 192, 192);
+  box-shadow: 5px 5px 10px rgb(129, 129, 129);
+}
+
 .task_item_area_hover:hover {
   color: white;
   background: #b0beb2;

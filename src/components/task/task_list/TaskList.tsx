@@ -5,9 +5,16 @@ import "../../../app/index.css";
 import { useTaskStore } from "../../../hooks/useTasks.ts";
 import TaskIdColumn from "./task_col/TaskIdColumn.tsx";
 import EditingBar from "./editing_bar/EditingBar.tsx";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  type DropResult,
+} from "@hello-pangea/dnd";
 
 const TaskList: FC = () => {
   const tasks = useTaskStore((state) => state.tasks);
+  const updateTasks = useTaskStore((state) => state.updateTasks);
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
   const [checkedTaskIds, setCheckedTaskIds] = useState<Set<number>>(new Set()); // 체크박스를 전부 체크하는 상태
 
@@ -61,9 +68,23 @@ const TaskList: FC = () => {
   const handleCheckOne = (taskId: number, checked: boolean) => {
     setCheckedTaskIds((prev) => {
       const next = new Set(prev);
-      checked ? next.add(taskId) : next.delete(taskId);
+
+      if (checked) {
+        next.add(taskId);
+      } else {
+        next.delete(taskId);
+      }
+
       return next;
     });
+  };
+
+  const handleDragEnd = (result: DropResult<string>) => {
+    if (!result.destination) return;
+
+    const [reorderedItem] = tasks.splice(result.source.index, 1); // 드래그한 항목을 자르고 그 항목을 변수에 저장
+    tasks.splice(result.destination.index, 0, reorderedItem); // reorderedItem를 드롭한 위치에 삽입
+    updateTasks(tasks);
   };
 
   return (
@@ -83,21 +104,46 @@ const TaskList: FC = () => {
       </div>
       {tasks.length ? (
         <div>
-          <ul
-            ref={listRef}
-            className={`${style.task_list_body} ${isEditingAllIds ? style.isEditing : ""}`}
-          >
-            {...tasks.map((task) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                isEditingAllIds={isEditingAllIds}
-                setIsEditingAllIds={setIsEditingAllIds}
-                isChecked={checkedTaskIds.has(task.id!)}
-                onCheck={(checked) => handleCheckOne(task.id!, checked)}
-              />
-            ))}
-          </ul>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId={"task_list"}>
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <ul
+                    ref={listRef}
+                    className={`${style.task_list_body} ${isEditingAllIds ? style.isEditing : ""}`}
+                  >
+                    {tasks.map((task, index) => (
+                      <Draggable
+                        key={task.id}
+                        draggableId={task.id!.toString()}
+                        index={index}
+                      >
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <TaskItem
+                              task={task}
+                              isDragging={snapshot.isDragging}
+                              isEditingAllIds={isEditingAllIds}
+                              setIsEditingAllIds={setIsEditingAllIds}
+                              isChecked={checkedTaskIds.has(task.id!)}
+                              onCheck={(checked) =>
+                                handleCheckOne(task.id!, checked)
+                              }
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </ul>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
           <EditingBar
             isEditingAllIds={isEditingAllIds}
             checkedTaskIds={checkedTaskIds}

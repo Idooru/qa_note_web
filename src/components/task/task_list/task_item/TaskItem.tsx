@@ -10,6 +10,7 @@ import TaskIdField from "./task_id/TaskIdField.tsx";
 
 interface TaskItemProps {
   task: Task;
+  isDragging: boolean;
   isEditingAllIds: boolean;
   setIsEditingAllIds: React.Dispatch<React.SetStateAction<boolean>>;
   isChecked: boolean;
@@ -18,6 +19,7 @@ interface TaskItemProps {
 
 const TaskItem: FC<TaskItemProps> = ({
   task,
+  isDragging,
   isEditingAllIds,
   setIsEditingAllIds,
   isChecked,
@@ -34,7 +36,7 @@ const TaskItem: FC<TaskItemProps> = ({
   return (
     <li className={style.task_item} onClick={handleItemClick}>
       <div
-        className={`${style.task_item_area} ${isEditingAllIds ? style.task_item_area_hover : style.task_item_area}`}
+        className={`${isDragging ? style.task_item_area_dragging : style.task_item_area} ${isEditingAllIds ? style.task_item_area_hover : style.task_item_area}`}
       >
         <TaskIdField
           _taskId={task.id!}
