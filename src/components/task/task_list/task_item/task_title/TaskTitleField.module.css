@@ -1,0 +1,14 @@
+.task_title_display,
+.task_title_edit {
+  flex: auto;
+  font-weight: bold;
+  color: #283642;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.task_title_edit {
+  width: 50%;
+  display: block;
+  border-bottom: 2px solid red;
+}

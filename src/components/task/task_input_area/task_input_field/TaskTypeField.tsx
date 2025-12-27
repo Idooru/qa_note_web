@@ -1,8 +1,8 @@
 import React, { type FC } from "react";
 import style from "./TaskInputField.module.css";
-import "../../../../app/index.css";
-import { type TaskType, taskTypes } from "../../../../data/task_data.ts";
+import { type TaskType } from "../../../../data/task_data.ts";
 import type { TaskFormAction } from "../../../../pages/TaskPage/create_task_page/reducer/task_form_reducer.ts";
+import SelectTaskType from "../../select_task_type/SelectTaskType.tsx";
 
 interface TaskTypeFieldProps {
   dispatch: React.Dispatch<TaskFormAction>;
@@ -16,19 +16,11 @@ const TaskTypeField: FC<TaskTypeFieldProps> = ({ dispatch, value }) => {
   };
 
   return (
-    <div className={style.task_input_field}>
-      <select value={value} onChange={handleChange} className="line_none">
-        <option value="" disabled>
-          select type
-        </option>
-
-        {taskTypes.map((taskType) => (
-          <option key={taskType} value={taskType}>
-            {taskType}
-          </option>
-        ))}
-      </select>
-    </div>
+    <SelectTaskType
+      value={value}
+      handleChange={handleChange}
+      className={style.task_input_field}
+    />
   );
 };
 

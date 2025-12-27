@@ -1,0 +1,27 @@
+.editing_bar {
+  padding-top: 10px;
+  height: 45px;
+
+  display: flex;
+  justify-content: end;
+}
+
+.button_area {
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.set_done_button {
+  padding: 15px 20px;
+  border: 1px solid rgb(132, 132, 132);
+  border-radius: 10px;
+  background-color: rgb(240, 240, 240);
+}
+
+.set_not_done_button {
+  padding: 15px 20px;
+  border: 1px solid rgb(132, 132, 132);
+  border-radius: 10px;
+  background-color: rgb(240, 240, 240);
+}

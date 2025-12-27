@@ -8,12 +8,6 @@
   font-size: 18px;
 }
 
-.task_id_col {
-  width: 20px;
-  text-align: center;
-  margin-right: 20px;
-}
-
 .task_title_col {
   flex: auto;
 }
@@ -38,9 +32,21 @@
 }
 
 .task_list_body {
-  height: 78vh;
-  padding: 0px 3px 0px 0px;
+  padding: 0 3px 0 0;
   overflow-y: auto;
+  height: 78vh;
+
   scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
   scrollbar-gutter: stable;
+}
+
+/* editing 상태일 때만 덮어쓰기 */
+.task_list_body.isEditing {
+  height: 74vh;
+}
+
+.no_tasks {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 32px;
 }

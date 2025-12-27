@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC } from "react";
 import { useNavigate, useOutlet } from "react-router-dom";
 import { IoMdCreate } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
@@ -14,7 +14,7 @@ const TaskPage: FC = () => {
   const outlet = useOutlet();
 
   return (
-    <>
+    <div>
       <div className="page">
         <header className={style.task_page_header}>
           <PageTitle title="Task Page" />
@@ -47,7 +47,7 @@ const TaskPage: FC = () => {
           </main>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

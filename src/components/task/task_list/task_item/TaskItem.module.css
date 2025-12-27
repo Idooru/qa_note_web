@@ -10,25 +10,15 @@
   display: flex;
   flex-direction: row;
   padding: 20px;
-  background-color: rgb(232, 232, 232);
   border-radius: 5px;
   font-size: 15px;
   position: relative;
+  background-color: rgb(232, 232, 232);
 }
 
-.task_id {
-  width: 20px;
-  text-align: center;
-  margin-right: 20px;
-}
-
-.task_title {
-  flex: auto;
-}
-
-.task_type {
-  width: 200px;
-  text-align: center;
+.task_item_area_hover:hover {
+  color: white;
+  background: #b0beb2;
 }
 
 .task_start_date {
