@@ -26,6 +26,7 @@ const TaskTypeField: FC<TaskTypeFieldProps> = ({ _taskId, _taskType }) => {
     });
     setType(taskType);
     setIsEditingType(false);
+    ``;
   };
 
   return (

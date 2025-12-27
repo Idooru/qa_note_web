@@ -7,7 +7,7 @@
 }
 
 .button_area {
-  width: 250px;
+  width: 350px;
   display: flex;
   justify-content: space-around;
 }
@@ -20,6 +20,13 @@
 }
 
 .set_not_done_button {
+  padding: 15px 20px;
+  border: 1px solid rgb(132, 132, 132);
+  border-radius: 10px;
+  background-color: rgb(240, 240, 240);
+}
+
+.delete_task_button {
   padding: 15px 20px;
   border: 1px solid rgb(132, 132, 132);
   border-radius: 10px;

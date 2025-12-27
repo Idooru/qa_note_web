@@ -7,6 +7,7 @@ interface TaskStore {
   modifyTaskTitle: (id: number, title: string) => void;
   modifyTaskType: (id: number, type: TaskType) => void;
   modifyTaskStatus: (id: number, complete: boolean) => void;
+  deleteTask: (id: number) => void;
 }
 
 export const useTaskStore = create<TaskStore>()((set) => ({
@@ -47,5 +48,9 @@ export const useTaskStore = create<TaskStore>()((set) => ({
           task.id === id ? { ...task, complete } : task,
         ),
       };
+    }),
+  deleteTask: (id) =>
+    set((state) => {
+      return { tasks: state.tasks.filter((task) => task.id !== id) };
     }),
 }));
