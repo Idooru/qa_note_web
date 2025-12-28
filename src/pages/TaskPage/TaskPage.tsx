@@ -10,7 +10,7 @@ import Button from "../../components/common/button/Button";
 import style from "./TaskPage.module.css";
 import TaskList from "../../components/task/task_list/TaskList";
 import ShowTaskCalenderPage from "./show_task_calender_page/ShowTaskCalenderPage.tsx";
-import { Outlet, useMatch, useNavigate, useOutlet } from "react-router-dom";
+import { useMatch, useNavigate, useOutlet } from "react-router-dom";
 
 const TaskPage: FC = () => {
   const navigate = useNavigate();
@@ -75,7 +75,6 @@ const TaskPage: FC = () => {
           <TaskList />
         </main>
       ) : null}
-      <Outlet />
     </div>
   );
 };
