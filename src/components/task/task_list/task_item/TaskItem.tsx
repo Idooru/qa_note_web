@@ -7,6 +7,7 @@ import type { Task } from "../../../../data/task_data";
 import TaskTitleField from "./task_title/TaskTitleField.tsx";
 import TaskTypeField from "./task_type/TaskTypeField.tsx";
 import TaskSeqField from "./task_seq/TaskSeqField.tsx";
+import TaskStartDateField from "./task_start_date/TaskStartDateField.tsx";
 
 interface TaskItemProps {
   task: Task;
@@ -48,7 +49,7 @@ const TaskItem: FC<TaskItemProps> = ({
         />
         <TaskTitleField _taskId={task.id} _taskTitle={task.title} />
         <TaskTypeField _taskId={task.id} _taskType={task.type} />
-        <p className={`${style.task_start_date}`}>{task.startDate}</p>
+        <TaskStartDateField startDate={task.startDate} />
         <p className={`${style.task_complete}`}>
           {task.complete ? (
             <MdDone color="green" className={style.task_complete_icon} />

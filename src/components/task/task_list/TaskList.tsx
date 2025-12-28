@@ -11,9 +11,17 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
+import { useToday } from "../../../hooks/useToday.ts";
 
 const TaskList: FC = () => {
+  const loadTasks = useTaskStore((state) => state.loadTasks);
+  const { year, month, day } = useToday();
   const tasks = useTaskStore((state) => state.tasks);
+
+  useEffect(() => {
+    loadTasks(new Date(`${year}-${month}-${day}`));
+  }, [year, month, day]);
+
   const updateTasks = useTaskStore((state) => state.updateTasks);
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
   const [checkedTaskIds, setCheckedTaskIds] = useState<Set<string>>(new Set()); // 체크박스를 전부 체크하는 상태

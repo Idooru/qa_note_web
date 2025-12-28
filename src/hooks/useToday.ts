@@ -1,31 +1,11 @@
-import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const useToday = () => {
-  const [today, setToday] = useState(() => new Date());
+  const [params] = useSearchParams();
 
-  useEffect(() => {
-    const updateAtMidnight = () => {
-      const now = new Date();
-      const nextMidnight = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + 1, // 다음날
-        0,
-        0,
-        0,
-        0
-      );
+  const year = Number(params.get("year"));
+  const month = Number(params.get("month"));
+  const day = Number(params.get("day"));
 
-      const timeout = nextMidnight.getTime() - now.getTime();
-
-      setTimeout(() => {
-        setToday(new Date());
-        updateAtMidnight(); // 다음 자정 예약
-      }, timeout);
-    };
-
-    updateAtMidnight();
-  }, []);
-
-  return today;
+  return { year, month, day };
 };

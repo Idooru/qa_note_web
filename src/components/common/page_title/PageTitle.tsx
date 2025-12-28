@@ -1,7 +1,8 @@
 import type { FC } from "react";
-import { useToday } from "../../../hooks/useToday";
 import "../../../app/index.css";
 import style from "./PageTitle.module.css";
+
+import { useToday } from "../../../hooks/useToday";
 
 interface PageTitleProps {
   title: string;
@@ -9,7 +10,7 @@ interface PageTitleProps {
 }
 
 const PageTitle: FC<PageTitleProps> = ({ title, showToday }) => {
-  const today = useToday();
+  const { year, month, day } = useToday();
 
   return (
     <div className={`${style.title} main_border`}>
@@ -17,9 +18,7 @@ const PageTitle: FC<PageTitleProps> = ({ title, showToday }) => {
       {showToday && (
         <div
           className={`${style.today_date} sub_text_color`}
-        >{`${today.toLocaleDateString()} ${today.toLocaleDateString("ko-KR", {
-          weekday: "short",
-        })}`}</div>
+        >{`${year}. ${month}. ${day}`}</div>
       )}
     </div>
   );

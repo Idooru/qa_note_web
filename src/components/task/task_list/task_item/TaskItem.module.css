@@ -26,11 +26,6 @@
   background: #b0beb2;
 }
 
-.task_start_date {
-  width: 120px;
-  text-align: center;
-}
-
 .task_complete {
   width: 110px;
   position: relative;
