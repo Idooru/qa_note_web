@@ -1,10 +1,10 @@
-.task_id_display {
+.task_seq_display {
   width: 20px;
   text-align: center;
   margin-right: 20px;
 }
 
-.task_id_edit {
+.task_seq_edit {
   width: 20px;
   margin-right: 20px;
 }

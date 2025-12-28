@@ -3,7 +3,6 @@ import TaskItem from "./task_item/TaskItem";
 import style from "./TaskList.module.css";
 import "../../../app/index.css";
 import { useTaskStore } from "../../../hooks/useTasks.ts";
-import TaskIdColumn from "./task_col/TaskIdColumn.tsx";
 import EditingBar from "./editing_bar/EditingBar.tsx";
 import {
   DragDropContext,
@@ -11,12 +10,13 @@ import {
   Draggable,
   type DropResult,
 } from "@hello-pangea/dnd";
+import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
 
 const TaskList: FC = () => {
   const tasks = useTaskStore((state) => state.tasks);
   const updateTasks = useTaskStore((state) => state.updateTasks);
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
-  const [checkedTaskIds, setCheckedTaskIds] = useState<Set<number>>(new Set()); // 체크박스를 전부 체크하는 상태
+  const [checkedTaskIds, setCheckedTaskIds] = useState<Set<string>>(new Set()); // 체크박스를 전부 체크하는 상태
 
   const listRef = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,15 +57,13 @@ const TaskList: FC = () => {
 
   const checkAll = (checked: boolean) => {
     if (checked) {
-      setCheckedTaskIds(
-        new Set<number>(tasks.map((task) => task.id) as number[]),
-      );
+      setCheckedTaskIds(new Set(tasks.map((task) => task.id) as string[]));
     } else {
       setCheckedTaskIds(new Set());
     }
   };
 
-  const handleCheckOne = (taskId: number, checked: boolean) => {
+  const handleCheckOne = (taskId: string, checked: boolean) => {
     setCheckedTaskIds((prev) => {
       const next = new Set(prev);
 
@@ -82,15 +80,26 @@ const TaskList: FC = () => {
   const handleDragEnd = (result: DropResult<string>) => {
     if (!result.destination) return;
 
-    const [reorderedItem] = tasks.splice(result.source.index, 1); // 드래그한 항목을 자르고 그 항목을 변수에 저장
-    tasks.splice(result.destination.index, 0, reorderedItem); // reorderedItem를 드롭한 위치에 삽입
-    updateTasks(tasks);
+    // 1. 배열 복사
+    const reorderedTasks = Array.from(tasks);
+
+    // 2. 순서 변경
+    const [moved] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, moved);
+
+    // 3. seq만 다시 부여 (1부터)
+    const tasksWithReorderedIds = reorderedTasks.map((task, index) => ({
+      ...task,
+      seq: index + 1,
+    }));
+
+    updateTasks(tasksWithReorderedIds);
   };
 
   return (
     <div ref={containerRef}>
       <div className={`${style.task_list_header} main_border`}>
-        <TaskIdColumn
+        <TaskSeqColumn
           isEditingAllIds={isEditingAllIds}
           setIsEditingAllIds={setIsEditingAllIds}
           isAllChecked={checkedTaskIds.size === tasks.length}
@@ -115,7 +124,7 @@ const TaskList: FC = () => {
                     {tasks.map((task, index) => (
                       <Draggable
                         key={task.id}
-                        draggableId={task.id!.toString()}
+                        draggableId={task.id.toString()}
                         index={index}
                       >
                         {(provided, snapshot) => (
@@ -129,9 +138,9 @@ const TaskList: FC = () => {
                               isDragging={snapshot.isDragging}
                               isEditingAllIds={isEditingAllIds}
                               setIsEditingAllIds={setIsEditingAllIds}
-                              isChecked={checkedTaskIds.has(task.id!)}
+                              isChecked={checkedTaskIds.has(task.id)}
                               onCheck={(checked) =>
-                                handleCheckOne(task.id!, checked)
+                                handleCheckOne(task.id, checked)
                               }
                             />
                           </div>

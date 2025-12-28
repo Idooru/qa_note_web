@@ -1,14 +1,14 @@
-import style from "./TaskIdColumn.module.css";
+import style from "./TaskSeqColumn.module.css";
 import React, { type FC } from "react";
 
-interface TaskIdColumnProps {
+interface TaskSeqColumnProps {
   isEditingAllIds: boolean;
   setIsEditingAllIds: React.Dispatch<React.SetStateAction<boolean>>;
   isAllChecked: boolean;
   checkAll: (checked: boolean) => void;
 }
 
-const TaskIdColumn: FC<TaskIdColumnProps> = ({
+const TaskSeqColumn: FC<TaskSeqColumnProps> = ({
   isEditingAllIds,
   setIsEditingAllIds,
   isAllChecked,
@@ -16,7 +16,7 @@ const TaskIdColumn: FC<TaskIdColumnProps> = ({
 }) => (
   <>
     {isEditingAllIds ? (
-      <div className={style.task_id_col}>
+      <div className={style.task_seq_col}>
         <input
           type="checkbox"
           checked={isAllChecked}
@@ -25,13 +25,13 @@ const TaskIdColumn: FC<TaskIdColumnProps> = ({
       </div>
     ) : (
       <p
-        className={style.task_id_col}
+        className={style.task_seq_col}
         onDoubleClick={() => setIsEditingAllIds(true)}
       >
-        ID
+        Seq
       </p>
     )}
   </>
 );
 
-export default TaskIdColumn;
+export default TaskSeqColumn;

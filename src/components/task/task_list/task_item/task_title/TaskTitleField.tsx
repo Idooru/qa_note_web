@@ -5,7 +5,7 @@ import { modifyTaskTitle } from "../../../../../services/task/modifyTaskTitle.ts
 import { useTaskStore } from "../../../../../hooks/useTasks.ts";
 
 interface TaskTitleFieldProps {
-  _taskId: number;
+  _taskId: string;
   _taskTitle: string;
 }
 

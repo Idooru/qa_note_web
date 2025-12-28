@@ -1,9 +1,9 @@
 import type { TaskType } from "../../data/task_data.ts";
 
 type ModifyTaskType = (params: {
-  taskId: number;
+  taskId: string;
   type: TaskType;
-  modifyTaskTypeStore: (id: number, type: TaskType) => void;
+  modifyTaskTypeStore: (id: string, type: TaskType) => void;
 }) => void;
 
 export const modifyTaskType: ModifyTaskType = ({

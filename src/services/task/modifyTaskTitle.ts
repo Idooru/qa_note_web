@@ -1,7 +1,7 @@
 type ModifyTaskTitle = (params: {
-  taskId: number;
+  taskId: string;
   title: string;
-  modifyTaskTitleStore: (id: number, title: string) => void;
+  modifyTaskTitleStore: (id: string, title: string) => void;
 }) => void;
 
 export const modifyTaskTitle: ModifyTaskTitle = ({

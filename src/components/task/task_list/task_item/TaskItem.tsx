@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import type { Task } from "../../../../data/task_data";
 import TaskTitleField from "./task_title/TaskTitleField.tsx";
 import TaskTypeField from "./task_type/TaskTypeField.tsx";
-import TaskIdField from "./task_id/TaskIdField.tsx";
+import TaskSeqField from "./task_seq/TaskSeqField.tsx";
 
 interface TaskItemProps {
   task: Task;
@@ -38,16 +38,16 @@ const TaskItem: FC<TaskItemProps> = ({
       <div
         className={`${isDragging ? style.task_item_area_dragging : style.task_item_area} ${isEditingAllIds ? style.task_item_area_hover : style.task_item_area}`}
       >
-        <TaskIdField
-          _taskId={task.id!}
+        <TaskSeqField
+          taskSeq={task.seq!}
           isEditingAllIds={isEditingAllIds}
           setIsEditingAllIds={setIsEditingAllIds}
           checkboxRef={checkboxRef}
           isChecked={isChecked}
           onCheck={onCheck}
         />
-        <TaskTitleField _taskId={task.id!} _taskTitle={task.title} />
-        <TaskTypeField _taskId={task.id!} _taskType={task.type} />
+        <TaskTitleField _taskId={task.id} _taskTitle={task.title} />
+        <TaskTypeField _taskId={task.id} _taskType={task.type} />
         <p className={`${style.task_start_date}`}>{task.startDate}</p>
         <p className={`${style.task_complete}`}>
           {task.complete ? (

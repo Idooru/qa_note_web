@@ -4,10 +4,10 @@ import { create } from "zustand";
 interface TaskStore {
   tasks: Task[];
   createTask: (task: Task) => void;
-  modifyTaskTitle: (id: number, title: string) => void;
-  modifyTaskType: (id: number, type: TaskType) => void;
-  modifyTaskStatus: (id: number, complete: boolean) => void;
-  deleteTask: (id: number) => void;
+  modifyTaskTitle: (id: string, title: string) => void;
+  modifyTaskType: (id: string, type: TaskType) => void;
+  modifyTaskStatus: (id: string, complete: boolean) => void;
+  deleteTask: (id: string) => void;
   updateTasks: (newTasks: Task[]) => void;
 }
 
@@ -15,11 +15,11 @@ export const useTaskStore = create<TaskStore>()((set) => ({
   tasks,
   createTask: (payload) =>
     set((state) => {
-      const lastId = state.tasks.at(-1)?.id ?? 0;
+      const lastSeq = state.tasks.at(-1)?.seq ?? 0;
 
       const newTask: Task = {
         ...payload,
-        id: lastId + 1,
+        seq: lastSeq + 1,
       };
 
       return {

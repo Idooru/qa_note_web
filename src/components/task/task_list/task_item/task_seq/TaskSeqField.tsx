@@ -1,8 +1,8 @@
 import React, { type FC, useRef } from "react";
-import style from "./TaskIdField.module.css";
+import style from "./TaskSeqField.module.css";
 
-interface TaskIdFieldProps {
-  _taskId: number;
+interface TaskSeqFieldProps {
+  taskSeq: number;
   isEditingAllIds: boolean;
   setIsEditingAllIds: React.Dispatch<React.SetStateAction<boolean>>;
   checkboxRef: React.RefObject<HTMLInputElement | null>;
@@ -10,8 +10,8 @@ interface TaskIdFieldProps {
   onCheck: (checked: boolean) => void;
 }
 
-const TaskIdField: FC<TaskIdFieldProps> = ({
-  _taskId,
+const TaskSeqField: FC<TaskSeqFieldProps> = ({
+  taskSeq,
   isEditingAllIds,
   setIsEditingAllIds,
   checkboxRef,
@@ -27,7 +27,7 @@ const TaskIdField: FC<TaskIdFieldProps> = ({
   return (
     <>
       {isEditingAllIds ? (
-        <div ref={wrapperRef} className={`${style.task_id_edit} center`}>
+        <div ref={wrapperRef} className={`${style.task_seq_edit} center`}>
           <input
             ref={checkboxRef}
             type="checkbox"
@@ -37,12 +37,12 @@ const TaskIdField: FC<TaskIdFieldProps> = ({
           />
         </div>
       ) : (
-        <p className={style.task_id_display} onDoubleClick={handleActiveEdit}>
-          #{_taskId}
+        <p className={style.task_seq_display} onDoubleClick={handleActiveEdit}>
+          #{taskSeq}
         </p>
       )}
     </>
   );
 };
 
-export default TaskIdField;
+export default TaskSeqField;

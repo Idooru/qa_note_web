@@ -7,7 +7,7 @@ import { type TaskType } from "../../../../../data/task_data.ts";
 import SelectTaskType from "../../../select_task_type/SelectTaskType.tsx";
 
 interface TaskTypeFieldProps {
-  _taskId: number;
+  _taskId: string;
   _taskType: TaskType;
 }
 

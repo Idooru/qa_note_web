@@ -6,9 +6,9 @@ import { useTaskStore } from "../../../../hooks/useTasks.ts";
 
 interface EditingBarProps {
   isEditingAllIds: boolean;
-  checkedTaskIds: Set<number>;
+  checkedTaskIds: Set<string>;
   setIsEditingAllIds: React.Dispatch<React.SetStateAction<boolean>>;
-  setCheckedTaskIds: React.Dispatch<React.SetStateAction<Set<number>>>;
+  setCheckedTaskIds: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
 const EditingBar: FC<EditingBarProps> = ({
