@@ -5,19 +5,21 @@
 }
 
 .button {
-  border: 1px solid rgb(132, 132, 132);
   border-radius: 10px;
   margin-right: 10px;
-  background-color: rgb(240, 240, 240);
+  background-color: #373737;
 }
 
-.go_back {
+.button_area {
+  width: 160px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.button_icon {
   width: 40px;
-  height: 40px;
-}
-
-.create_task {
-  width: 130px;
   height: 40px;
 }
 

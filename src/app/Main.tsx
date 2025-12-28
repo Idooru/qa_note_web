@@ -8,6 +8,7 @@ import Summary from "../pages/Summary/Summary";
 import Memo from "../pages/Memo/Memo";
 import Idea from "../pages/Idea/Idea";
 import CreateTaskPage from "../pages/TaskPage/create_task_page/CreateTaskPage";
+import ShowTaskCalenderPage from "../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.tsx";
 
 const Main = () => {
   return (
@@ -18,6 +19,7 @@ const Main = () => {
           <Route path="/" element={<Navigate to="/task" replace />} />
           <Route path="/task" element={<TaskPage />}>
             <Route path="create-task" element={<CreateTaskPage />} />
+            <Route path="calender" element={<ShowTaskCalenderPage />} />
           </Route>
           <Route path="/report" element={<Report />} />
           <Route path="/summary" element={<Summary />} />

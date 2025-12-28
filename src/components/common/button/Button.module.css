@@ -16,8 +16,5 @@
   transform: translate(-50%, -50%);
   font-size: 20px;
   line-height: 1;
-}
-
-.button_text {
-  flex: auto;
+  color: white;
 }

@@ -12,7 +12,10 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({ className, title, onClick, icon: Icon }) => {
   return (
-    <button className={`${style.button} ${className}`} onClick={onClick}>
+    <button
+      className={`${style.button} ${className} line_none`}
+      onClick={onClick}
+    >
       <span className={style.button_icon_area}>
         <span className={`${style.button_icon}`}>{Icon && <Icon />}</span>
       </span>
