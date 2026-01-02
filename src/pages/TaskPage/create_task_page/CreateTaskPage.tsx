@@ -7,20 +7,28 @@ import { taskFormReducer } from "./reducer/task_form_reducer.ts";
 import Button from "../../../components/common/button/Button.tsx";
 import { createTask } from "../../../services/task/createTask.ts";
 import { useTaskStore } from "../../../hooks/useTasks.ts";
+import { useToday } from "../../../hooks/useToday.ts";
 
 const CreateTaskPage: FC = () => {
   const [state, dispatch] = useReducer(taskFormReducer, {
     taskType: "",
     taskTitle: "",
   });
+
   const createTaskStore = useTaskStore((state) => state.createTask);
+
+  const { year, month, day } = useToday();
 
   const handleCreateButtonClick = () => {
     const { taskTitle, taskType } = state;
     if (taskType === "") return alert("테스크의 타입이 선택되지 않았습니다!");
     if (!taskTitle.length) return alert("테스크의 제목이 입력되지 않았습니다!");
 
-    createTask({ state, createTaskStore });
+    createTask({
+      state,
+      createTaskStore,
+      startDate: new Date(`${year}-${month}-${day}`),
+    });
     dispatch({ type: "RESET" });
   };
 

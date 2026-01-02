@@ -5,14 +5,19 @@ import { v4 as uuidv4 } from "uuid";
 type CreateTask = (params: {
   state: TaskFormState;
   createTaskStore: (task: Task) => void;
+  startDate: Date;
 }) => void;
 
-export const createTask: CreateTask = ({ state, createTaskStore }) => {
+export const createTask: CreateTask = ({
+  state,
+  createTaskStore,
+  startDate,
+}) => {
   createTaskStore({
     id: uuidv4(),
     title: state.taskTitle,
     type: state.taskType,
-    startDate: new Date().toLocaleTimeString(),
+    startDate,
     complete: false,
   });
 
