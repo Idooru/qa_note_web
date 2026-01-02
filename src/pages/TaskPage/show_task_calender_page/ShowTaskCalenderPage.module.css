@@ -1,18 +1,19 @@
 /* 최상단 컨테이너 */
 .calender_top {
+  margin-top: 20px;
   padding: 24px 0;
   box-sizing: border-box;
 }
 
-/* 캘린더 자체 */
-.task_calendar {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 10px;
-  padding: 24px;
-  background: #fff;
+:global(.react-calendar).task_calendar {
   font-family: "Inter", "Pretendard", sans-serif;
+  padding: 24px;
+  width: 98%;
+  max-width: none;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 10px rgb(129, 129, 129);
 }
 
 /* ===== Header ===== */
@@ -28,7 +29,10 @@
 /* ===== 요일 ===== */
 .task_calendar :global(.react-calendar__month-view__weekdays) {
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #989898;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 /* ===== 날짜 영역 ===== */
@@ -38,15 +42,15 @@
 
 /* 날짜 타일 */
 .task_calendar :global(.react-calendar__tile) {
-  height: 100%;
+  margin: 5px 0;
+  height: 140px;
   font-size: 18px;
   border-radius: 12px;
-  padding: 12px 0;
 }
 
 /* 오늘 */
 .task_calendar :global(.react-calendar__tile--now) {
-  background: #d8e2ff;
+  background: #c0d0ff;
   font-weight: 700;
 }
 
@@ -56,56 +60,82 @@
   color: white;
 }
 
-/* 날짜 타일 레이아웃 */
-.task_calendar :global(.react-calendar__tile) {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 4px;
-}
-
 /* 날짜 숫자 */
 .task_calendar :global(.react-calendar__tile abbr) {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 4px;
-}
-
-/* Task 개수 영역 */
-.task_count_area {
-  margin-top: auto;
-  font-size: 12px;
-  font-weight: 500;
-  color: #4f46e5;
-  background: #eef2ff;
-  padding: 2px 6px;
-  border-radius: 999px;
 }
 
 .task_calendar :global(.react-calendar__tile:enabled:hover) {
-  background: #f3f4f6;
+  background: #dedede;
 }
 
+/* 날짜 타일 정렬 */
 .task_calendar :global(.react-calendar__tile) {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
   padding: 16px 12px; /* ← 여기 */
   border-radius: 14px;
   font-size: 18px;
 }
+
 /* 날짜 숫자 */
 .task_calendar :global(.react-calendar__tile abbr) {
   margin-bottom: 8px;
   font-weight: 600;
 }
 
-/* Task 개수 영역 */
-.task_count_area {
-  margin-top: auto; /* 아래쪽 고정 */
-  margin-bottom: 4px; /* 바닥에서 살짝 띄우기 */
-  padding: 4px 8px;
+.task_summary {
+  margin-top: auto;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgb(245, 245, 245);
+  font-size: 12px;
+}
+
+/* badge row */
+.task_badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.badge {
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.complete {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pending {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* progress */
+.progress_bar {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress_fill {
+  height: 100%;
+  background: #22c55e;
+}
+
+.total {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  color: #6b7280;
 }

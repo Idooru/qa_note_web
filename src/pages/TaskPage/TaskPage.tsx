@@ -50,7 +50,7 @@ const TaskPage: FC = () => {
             <Button
               icon={SlCalender}
               className={`${style.button_icon} ${style.button}`}
-              onClick={() => navigate("calender")}
+              onClick={() => navigate(`calender`)}
             />
           )}
 

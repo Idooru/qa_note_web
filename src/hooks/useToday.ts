@@ -7,7 +7,5 @@ export const useToday = () => {
   const month = params.get("month");
   const day = params.get("day");
 
-  console.log(`${year}-${month}-${day}`);
-
   return { year, month, day };
 };

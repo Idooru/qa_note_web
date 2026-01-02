@@ -16,8 +16,8 @@ interface TaskStore {
 export const useTaskStore = create<TaskStore>()((set) => ({
   tasks,
   loadTasks: (date) =>
-    set((state) => ({
-      tasks: state.tasks.filter((task) => {
+    set(() => ({
+      tasks: tasks.filter((task) => {
         const today = parseDate(date);
         const startDate = parseDate(task.startDate);
 
