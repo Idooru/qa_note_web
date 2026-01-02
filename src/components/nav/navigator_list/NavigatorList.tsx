@@ -21,12 +21,13 @@ const _navItems: Array<NavItems> = [
   { title: "Memo", route: "/memo", isSelected: false, icon: FaStickyNote },
   { title: "Idea", route: "/idea", isSelected: false, icon: FaLightbulb },
 ];
+
 const NavigatorList: FC = () => {
   const location = useLocation();
 
   const navItems = _navItems.map((item) => ({
     ...item,
-    isSelected: location.pathname === item.route,
+    isSelected: location.pathname.includes(item.route),
   }));
 
   return (

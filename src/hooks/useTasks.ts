@@ -20,8 +20,10 @@ export const useTaskStore = create<TaskStore>()((set) => ({
       tasks: state.tasks.filter((task) => {
         const today = parseDate(date);
         const startDate = parseDate(task.startDate);
+
         const todayStr = `${today.year}-${today.month}-${today.day}`;
         const startDateStr = `${startDate.year}-${startDate.month}-${startDate.day}`;
+
         return todayStr === startDateStr;
       }),
     })),

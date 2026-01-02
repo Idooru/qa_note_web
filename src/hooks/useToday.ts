@@ -3,9 +3,11 @@ import { useSearchParams } from "react-router-dom";
 export const useToday = () => {
   const [params] = useSearchParams();
 
-  const year = Number(params.get("year"));
-  const month = Number(params.get("month"));
-  const day = Number(params.get("day"));
+  const year = params.get("year");
+  const month = params.get("month");
+  const day = params.get("day");
+
+  console.log(`${year}-${month}-${day}`);
 
   return { year, month, day };
 };

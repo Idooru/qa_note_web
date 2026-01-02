@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { SlCalender } from "react-icons/sl";
 import { FaPencil } from "react-icons/fa6";
@@ -11,12 +11,25 @@ import style from "./TaskPage.module.css";
 import TaskList from "../../components/task/task_list/TaskList";
 import ShowTaskCalenderPage from "./show_task_calender_page/ShowTaskCalenderPage.tsx";
 import { useMatch, useNavigate, useOutlet } from "react-router-dom";
+import { parseDate } from "../../utils/parse_date.ts";
 
 const TaskPage: FC = () => {
   const navigate = useNavigate();
   const outlet = useOutlet();
   const isCreateTask = useMatch("/task/create-task");
   const isCalendar = useMatch("/task/calender");
+
+  /** ✅ 쿼리 없으면 오늘 날짜로 보정 */
+  useEffect(() => {
+    if (location.search) return;
+
+    const today = new Date();
+    const { year, month, day } = parseDate(today);
+
+    navigate(`${location.pathname}?year=${year}&month=${month}&day=${day}`, {
+      replace: true,
+    });
+  }, [location.search, location.pathname, navigate]);
 
   return (
     <div className="page">
@@ -31,7 +44,7 @@ const TaskPage: FC = () => {
             <Button
               icon={FaListCheck}
               className={`${style.button_icon} ${style.button}`}
-              onClick={() => navigate("..")}
+              onClick={() => navigate(`..`)}
             />
           ) : (
             <Button
@@ -47,13 +60,13 @@ const TaskPage: FC = () => {
               <Button
                 icon={IoMdClose}
                 className={`${style.button_icon} ${style.button}`}
-                onClick={() => navigate("..")}
+                onClick={() => navigate(`..`)}
               />
             ) : (
               <Button
                 icon={FaPencil}
                 className={`${style.button_icon} ${style.button}`}
-                onClick={() => navigate("create-task")}
+                onClick={() => navigate(`create-task`)}
               />
             ))}
         </div>

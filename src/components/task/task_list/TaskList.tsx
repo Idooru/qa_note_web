@@ -16,11 +16,13 @@ import { useToday } from "../../../hooks/useToday.ts";
 const TaskList: FC = () => {
   const loadTasks = useTaskStore((state) => state.loadTasks);
   const { year, month, day } = useToday();
-  const tasks = useTaskStore((state) => state.tasks);
+  const dateStr = `${year}-${month}-${day}`;
 
   useEffect(() => {
-    loadTasks(new Date(`${year}-${month}-${day}`));
-  }, [year, month, day]);
+    loadTasks(new Date(dateStr));
+  }, [dateStr]);
+
+  const tasks = useTaskStore((state) => state.tasks);
 
   const updateTasks = useTaskStore((state) => state.updateTasks);
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
@@ -85,7 +87,7 @@ const TaskList: FC = () => {
     });
   };
 
-  const handleDragEnd = (result: DropResult<string>) => {
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
     // 1. 배열 복사
