@@ -1,3 +1,9 @@
+.fetching_area {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
 .task_list_header {
   margin: 15px 0;
   display: flex;

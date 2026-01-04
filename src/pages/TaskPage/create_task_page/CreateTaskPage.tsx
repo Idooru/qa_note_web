@@ -5,7 +5,6 @@ import style from "./CreateTaskPage.module.css";
 import TaskInputArea from "../../../components/task/task_input_area/TaskInputArea.tsx";
 import { taskFormReducer } from "./reducer/task_form_reducer.ts";
 import Button from "../../../components/common/button/Button.tsx";
-import { useTaskStore } from "../../../hooks/useTasks.ts";
 import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectCreateTask } from "../../../hooks/react-query/mutation/task/useConnectCreateTask.ts";
 import { CreateTaskService } from "../../../services/task/create-task-service.ts";
@@ -16,9 +15,8 @@ const CreateTaskPage: FC = () => {
     taskTitle: "",
   });
 
-  const createTaskStore = useTaskStore((state) => state.createTask);
   const { year, month, day } = useToday();
-  const service = new CreateTaskService(createTaskStore);
+  const service = new CreateTaskService();
   const { mutate: createTask } = useConnectCreateTask(service);
 
   const handleCreateButtonClick = () => {

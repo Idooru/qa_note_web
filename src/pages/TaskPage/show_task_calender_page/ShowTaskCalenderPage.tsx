@@ -5,7 +5,9 @@ import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import { parseDate } from "../../../utils/parse_date.ts";
 import "../../../app/index.css";
-import { tasks } from "../../../data/task_data.ts";
+import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
+import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
+import { useToday } from "../../../hooks/useToday.ts";
 
 const isSameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() &&
@@ -14,6 +16,15 @@ const isSameDay = (a: Date, b: Date) =>
 
 const ShowTaskCalenderPage: FC = () => {
   const navigate = useNavigate();
+
+  const { year, month, day } = useToday();
+  const startDate = `${year}-${month}-${day}`;
+  const service = new FetchTasksService();
+  const {
+    data: tasks = [],
+    // isLoading,
+    // isError,
+  } = useConnectFetchTasks(service, startDate, "month");
 
   const handleClickDay = (date: Date) => {
     const { year, month, day } = parseDate(date);
@@ -36,7 +47,7 @@ const ShowTaskCalenderPage: FC = () => {
           if (view !== "month") return null;
 
           const filteredTasks = tasks.filter((task) =>
-            isSameDay(task.startDate, date),
+            isSameDay(new Date(task.startDate), date),
           );
 
           if (filteredTasks.length === 0) return null;

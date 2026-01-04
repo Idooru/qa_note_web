@@ -12,19 +12,21 @@ import {
 } from "@hello-pangea/dnd";
 import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
 import { useToday } from "../../../hooks/useToday.ts";
+import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
+import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
 
 const TaskList: FC = () => {
-  const loadTasks = useTaskStore((state) => state.loadTasks);
-  const { year, month, day } = useToday();
-  const dateStr = `${year}-${month}-${day}`;
-
-  useEffect(() => {
-    loadTasks(new Date(dateStr));
-  }, [dateStr]);
-
-  const tasks = useTaskStore((state) => state.tasks);
-
   const updateTasks = useTaskStore((state) => state.updateTasks);
+  const { year, month, day } = useToday();
+  const startDate = `${year}-${month}-${day}`;
+
+  const service = new FetchTasksService();
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+  } = useConnectFetchTasks(service, startDate, "full");
+
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
   const [checkedTaskIds, setCheckedTaskIds] = useState<Set<string>>(new Set()); // 체크박스를 전부 체크하는 상태
 
@@ -105,6 +107,21 @@ const TaskList: FC = () => {
 
     updateTasks(tasksWithReorderedIds);
   };
+
+  /* 상태 처리 */
+  if (isLoading)
+    return (
+      <div className={`${style.fetching_area} center`}>
+        <h1>Loading...</h1>
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className={`${style.fetching_area} center`}>
+        <h1>Failed to load tasks</h1>
+      </div>
+    );
 
   return (
     <div ref={containerRef}>

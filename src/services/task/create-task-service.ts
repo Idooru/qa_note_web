@@ -1,19 +1,14 @@
-import type { Task } from "../../data/task_data.ts";
 import type {
   CreateTaskRequest,
   CreateTaskResponse,
 } from "../../hooks/react-query/mutation/task/useConnectCreateTask.ts";
 import { NetworkService } from "../common/network-service.ts";
 import type { AxiosError } from "axios";
+import { type QueryClient } from "@tanstack/react-query";
+import { FetchTasksService } from "./fetch-tasks-service.ts";
 
 export class CreateTaskService extends NetworkService {
   public static readonly QUERY_KEY = "CREATE_TASK";
-  public readonly renderFn: (task: Task) => void;
-
-  constructor(renderFn: (task: Task) => void) {
-    super();
-    this.renderFn = renderFn;
-  }
 
   public async createTask(
     body: CreateTaskRequest,
@@ -26,9 +21,16 @@ export class CreateTaskService extends NetworkService {
     return res.data;
   }
 
-  public handleSuccess(data: CreateTaskResponse): void {
-    const { result: task, message } = data;
-    this.renderFn(task);
+  public async handleSuccess(
+    data: CreateTaskResponse,
+    queryClient: QueryClient,
+  ): Promise<void> {
+    const { message } = data;
+
+    await queryClient.invalidateQueries({
+      queryKey: [FetchTasksService.QUERY_KEY],
+    });
+
     alert(message);
   }
 
