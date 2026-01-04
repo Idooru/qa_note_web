@@ -5,9 +5,10 @@ import style from "./CreateTaskPage.module.css";
 import TaskInputArea from "../../../components/task/task_input_area/TaskInputArea.tsx";
 import { taskFormReducer } from "./reducer/task_form_reducer.ts";
 import Button from "../../../components/common/button/Button.tsx";
-import { createTask } from "../../../services/task/createTask.ts";
 import { useTaskStore } from "../../../hooks/useTasks.ts";
 import { useToday } from "../../../hooks/useToday.ts";
+import { useConnectCreateTask } from "../../../hooks/react-query/mutation/task/useConnectCreateTask.ts";
+import { CreateTaskService } from "../../../services/task/create-task-service.ts";
 
 const CreateTaskPage: FC = () => {
   const [state, dispatch] = useReducer(taskFormReducer, {
@@ -16,19 +17,22 @@ const CreateTaskPage: FC = () => {
   });
 
   const createTaskStore = useTaskStore((state) => state.createTask);
-
   const { year, month, day } = useToday();
+  const service = new CreateTaskService(createTaskStore);
+  const { mutate: createTask } = useConnectCreateTask(service);
 
   const handleCreateButtonClick = () => {
     const { taskTitle, taskType } = state;
+    const startDate = `${year}-${month}-${day}`;
     if (taskType === "") return alert("테스크의 타입이 선택되지 않았습니다!");
     if (!taskTitle.length) return alert("테스크의 제목이 입력되지 않았습니다!");
 
     createTask({
-      state,
-      createTaskStore,
-      startDate: new Date(`${year}-${month}-${day}`),
+      title: taskTitle,
+      type: taskType,
+      startDate,
     });
+
     dispatch({ type: "RESET" });
   };
 

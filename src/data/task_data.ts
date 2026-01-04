@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export interface Task {
   id: string;
-  seq?: number;
+  seq: number;
   title: string;
   type:
     | ""

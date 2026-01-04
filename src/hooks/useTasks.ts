@@ -27,17 +27,10 @@ export const useTaskStore = create<TaskStore>()((set) => ({
         return todayStr === startDateStr;
       }),
     })),
-  createTask: (payload) =>
+  createTask: (task) =>
     set((state) => {
-      const lastSeq = state.tasks.at(-1)?.seq ?? 0;
-
-      const newTask: Task = {
-        ...payload,
-        seq: lastSeq + 1,
-      };
-
       return {
-        tasks: [...state.tasks, newTask],
+        tasks: [...state.tasks, task],
       };
     }),
   modifyTaskTitle: (id, title) =>

@@ -10,28 +10,33 @@ import Idea from "../pages/Idea/Idea";
 import CreateTaskPage from "../pages/TaskPage/create_task_page/CreateTaskPage";
 import ShowTaskCalenderPage from "../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.tsx";
 import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const Main = () => {
   return (
     <div id="main">
-      <Side />
-      <Page>
-        <Routes>
-          <Route path="/" element={<Navigate to="/task" replace />} />
+      <QueryClientProvider client={queryClient}>
+        <Side />
+        <Page>
+          <Routes>
+            <Route path="/" element={<Navigate to="/task" replace />} />
 
-          <Route path="/task" element={<TaskDateGuard />}>
-            <Route path="" element={<TaskPage />}>
-              <Route path="create-task" element={<CreateTaskPage />} />
-              <Route path="calender" element={<ShowTaskCalenderPage />} />
+            <Route path="/task" element={<TaskDateGuard />}>
+              <Route path="" element={<TaskPage />}>
+                <Route path="create-task" element={<CreateTaskPage />} />
+                <Route path="calender" element={<ShowTaskCalenderPage />} />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="/report" element={<Report />} />
-          <Route path="/summary" element={<Summary />} />
-          <Route path="/memo" element={<Memo />} />
-          <Route path="/idea" element={<Idea />} />
-        </Routes>
-      </Page>
+            <Route path="/report" element={<Report />} />
+            <Route path="/summary" element={<Summary />} />
+            <Route path="/memo" element={<Memo />} />
+            <Route path="/idea" element={<Idea />} />
+          </Routes>
+        </Page>
+      </QueryClientProvider>
     </div>
   );
 };
