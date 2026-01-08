@@ -1,10 +1,10 @@
 import React, { type FC, useState } from "react";
 import style from "./TaskTypeField.module.css";
 import "../../../../../app/index.css";
-import { modifyTaskType } from "../../../../../services/task/modifyTaskType.ts";
-import { useTaskStore } from "../../../../../hooks/useTasks.ts";
 import { type TaskType } from "../../../../../data/task_data.ts";
 import SelectTaskType from "../../../select_task_type/SelectTaskType.tsx";
+import { ModifyTaskTypeService } from "../../../../../services/task/modify-task-type-service.ts";
+import { useConnectModifyTaskType } from "../../../../../hooks/react-query/mutation/task/useConnectModifyTaskType.ts";
 
 interface TaskTypeFieldProps {
   _taskId: string;
@@ -14,19 +14,17 @@ interface TaskTypeFieldProps {
 const TaskTypeField: FC<TaskTypeFieldProps> = ({ _taskId, _taskType }) => {
   const [isEditingType, setIsEditingType] = useState(false);
   const [type, setType] = useState(_taskType);
-  const modifyTaskTypeStore = useTaskStore((state) => state.modifyTaskType);
+
+  const service = new ModifyTaskTypeService();
+  const { mutate: modifyTaskType } = useConnectModifyTaskType(service);
 
   const handleActiveEdit = () => setIsEditingType(true);
   const handleTypeSave = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const taskType = e.target.value as TaskType;
-    modifyTaskType({
-      taskId: _taskId,
-      type: taskType,
-      modifyTaskTypeStore,
-    });
-    setType(taskType);
+    const type = e.target.value as TaskType;
+    modifyTaskType({ id: _taskId, type });
+
+    setType(type);
     setIsEditingType(false);
-    ``;
   };
 
   return (
