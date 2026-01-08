@@ -2,9 +2,10 @@ import style from "./EditingBar.module.css";
 import React, { type FC } from "react";
 import "../../../../app/index.css";
 import Button from "../../../common/button/Button.tsx";
-import { useTaskStore } from "../../../../hooks/useTasks.ts";
 import { ModifyTaskStatusService } from "../../../../services/task/modify-task-status-service.ts";
 import { useConnectModifyTaskStatus } from "../../../../hooks/react-query/mutation/task/useConnectModifyTaskStatus.ts";
+import { DeleteTaskService } from "../../../../services/task/delete-task-service.ts";
+import { useConnectDeleteTask } from "../../../../hooks/react-query/mutation/task/useConnectDeleteTask.ts";
 
 interface EditingBarProps {
   isEditingAllIds: boolean;
@@ -20,13 +21,14 @@ const EditingBar: FC<EditingBarProps> = ({
   setCheckedTaskIds,
 }) => {
   const ids = Array.from(checkedTaskIds);
-  // const modifyTaskStatus = useTaskStore((state) => state.modifyTaskStatus);
+
   const modifyTaskStatusService = new ModifyTaskStatusService();
   const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus(
     modifyTaskStatusService,
   );
 
-  const deleteTask = useTaskStore((state) => state.deleteTask);
+  const deleteTaskService = new DeleteTaskService();
+  const { mutate: deleteTask } = useConnectDeleteTask(deleteTaskService);
 
   const handleClickDone = () => {
     modifyTaskStatus({ ids, status: true });
@@ -43,8 +45,7 @@ const EditingBar: FC<EditingBarProps> = ({
   const handleClickDelete = () => {
     const isDelete = confirm("선택한 테스크를 삭제하시겠습니까?");
     if (isDelete) {
-      checkedTaskIds.forEach((id) => deleteTask(id));
-      alert("선택한 테스크를 삭제하였습니다!");
+      deleteTask({ ids });
       setIsEditingAllIds(false);
       setCheckedTaskIds(new Set());
     }
