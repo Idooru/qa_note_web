@@ -1,8 +1,8 @@
 import { type FC, useRef, useState } from "react";
 import style from "./TaskTitleField.module.css";
 import "../../../../../app/index.css";
-import { modifyTaskTitle } from "../../../../../services/task/modifyTaskTitle.ts";
-import { useTaskStore } from "../../../../../hooks/useTasks.ts";
+import { useConnectModifyTaskTitle } from "../../../../../hooks/react-query/mutation/task/useConnectModifyTaskTitle.ts";
+import { ModifyTaskTitleService } from "../../../../../services/task/modify-task-title-service.ts";
 
 interface TaskTitleFieldProps {
   _taskId: string;
@@ -13,15 +13,13 @@ const TaskTitleField: FC<TaskTitleFieldProps> = ({ _taskId, _taskTitle }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [title, setTitle] = useState(_taskTitle);
   const originalTitleRef = useRef(_taskTitle);
-  const modifyTaskTitleStore = useTaskStore((state) => state.modifyTaskTitle);
+
+  const service = new ModifyTaskTitleService();
+  const { mutate: modifyTaskTitle } = useConnectModifyTaskTitle(service);
 
   const handleActiveEdit = () => setIsEditingTitle(true);
   const handleTitleSave = () => {
-    modifyTaskTitle({
-      taskId: _taskId,
-      title: _taskTitle,
-      modifyTaskTitleStore,
-    });
+    modifyTaskTitle({ id: _taskId, title });
     setIsEditingTitle(false);
   };
   const handleBlur = () => {
