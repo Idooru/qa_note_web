@@ -12,7 +12,8 @@ export interface ModifyTaskTypeResponse {
   message: string;
 }
 
-export const useConnectModifyTaskType = (service: ModifyTaskTypeService) => {
+export const useConnectModifyTaskType = () => {
+  const service = new ModifyTaskTypeService();
   const queryClient = useQueryClient();
   return useMutation<ModifyTaskTypeResponse, AxiosError, ModifyTaskTypeRequest>(
     {

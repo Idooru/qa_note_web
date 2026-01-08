@@ -7,7 +7,6 @@ import { taskFormReducer } from "./reducer/task_form_reducer.ts";
 import Button from "../../../components/common/button/Button.tsx";
 import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectCreateTask } from "../../../hooks/react-query/mutation/task/useConnectCreateTask.ts";
-import { CreateTaskService } from "../../../services/task/create-task-service.ts";
 
 const CreateTaskPage: FC = () => {
   const [state, dispatch] = useReducer(taskFormReducer, {
@@ -16,8 +15,7 @@ const CreateTaskPage: FC = () => {
   });
 
   const { year, month, day } = useToday();
-  const service = new CreateTaskService();
-  const { mutate: createTask } = useConnectCreateTask(service);
+  const { mutate: createTask } = useConnectCreateTask();
 
   const handleCreateButtonClick = () => {
     const { taskTitle, taskType } = state;

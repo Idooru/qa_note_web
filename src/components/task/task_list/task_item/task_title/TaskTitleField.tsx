@@ -2,7 +2,6 @@ import { type FC, useRef, useState } from "react";
 import style from "./TaskTitleField.module.css";
 import "../../../../../app/index.css";
 import { useConnectModifyTaskTitle } from "../../../../../hooks/react-query/mutation/task/useConnectModifyTaskTitle.ts";
-import { ModifyTaskTitleService } from "../../../../../services/task/modify-task-title-service.ts";
 
 interface TaskTitleFieldProps {
   _taskId: string;
@@ -14,8 +13,7 @@ const TaskTitleField: FC<TaskTitleFieldProps> = ({ _taskId, _taskTitle }) => {
   const [title, setTitle] = useState(_taskTitle);
   const originalTitleRef = useRef(_taskTitle);
 
-  const service = new ModifyTaskTitleService();
-  const { mutate: modifyTaskTitle } = useConnectModifyTaskTitle(service);
+  const { mutate: modifyTaskTitle } = useConnectModifyTaskTitle();
 
   const handleActiveEdit = () => setIsEditingTitle(true);
   const handleTitleSave = () => {

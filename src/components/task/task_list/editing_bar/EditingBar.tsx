@@ -2,9 +2,7 @@ import style from "./EditingBar.module.css";
 import React, { type FC } from "react";
 import "../../../../app/index.css";
 import Button from "../../../common/button/Button.tsx";
-import { ModifyTaskStatusService } from "../../../../services/task/modify-task-status-service.ts";
 import { useConnectModifyTaskStatus } from "../../../../hooks/react-query/mutation/task/useConnectModifyTaskStatus.ts";
-import { DeleteTaskService } from "../../../../services/task/delete-task-service.ts";
 import { useConnectDeleteTask } from "../../../../hooks/react-query/mutation/task/useConnectDeleteTask.ts";
 
 interface EditingBarProps {
@@ -22,13 +20,8 @@ const EditingBar: FC<EditingBarProps> = ({
 }) => {
   const ids = Array.from(checkedTaskIds);
 
-  const modifyTaskStatusService = new ModifyTaskStatusService();
-  const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus(
-    modifyTaskStatusService,
-  );
-
-  const deleteTaskService = new DeleteTaskService();
-  const { mutate: deleteTask } = useConnectDeleteTask(deleteTaskService);
+  const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus();
+  const { mutate: deleteTask } = useConnectDeleteTask();
 
   const handleClickDone = () => {
     modifyTaskStatus({ ids, status: true });

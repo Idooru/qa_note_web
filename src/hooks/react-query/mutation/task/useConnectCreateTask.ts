@@ -15,10 +15,11 @@ export interface CreateTaskResponse {
   result: Task;
 }
 
-export const useConnectCreateTask = (service: CreateTaskService) => {
+export const useConnectCreateTask = () => {
+  const service = new CreateTaskService();
   const queryClient = useQueryClient();
   return useMutation<CreateTaskResponse, AxiosError, CreateTaskRequest>({
-    mutationKey: [CreateTaskService.QUERY_KEY],
+    mutationKey: [CreateTaskService.MUTATION_KEY],
     mutationFn: (body) => service.createTask(body),
     onSuccess: (data) => service.handleSuccess(data, queryClient),
     onError: (err) => service.handleError(err),

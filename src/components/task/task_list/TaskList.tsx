@@ -14,7 +14,6 @@ import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
 import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
 import type { ChangeTaskTuple } from "../../../data/task_data.ts";
-import { ChangeTaskSeqService } from "../../../services/task/change-task-seq-service.ts";
 import { useConnectChangeTaskSeq } from "../../../hooks/react-query/mutation/task/useConnectChangeTaskSeq.ts";
 
 const TaskList: FC = () => {
@@ -35,9 +34,7 @@ const TaskList: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const prevLengthRef = useRef<number>(tasks.length);
 
-  const changeTaskSeqService = new ChangeTaskSeqService();
-  const { mutate: changeTaskSeq } =
-    useConnectChangeTaskSeq(changeTaskSeqService);
+  const { mutate: changeTaskSeq } = useConnectChangeTaskSeq();
 
   useEffect(() => {
     const prevLength = prevLengthRef.current;

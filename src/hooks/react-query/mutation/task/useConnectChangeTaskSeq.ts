@@ -11,7 +11,8 @@ export interface ChangeTaskSeqResponse {
   message: string;
 }
 
-export const useConnectChangeTaskSeq = (service: ChangeTaskSeqService) => {
+export const useConnectChangeTaskSeq = () => {
+  const service = new ChangeTaskSeqService();
   const queryClient = useQueryClient();
   return useMutation<ChangeTaskSeqResponse, AxiosError, ChangeTaskSeqRequest>({
     mutationKey: [ChangeTaskSeqService.MUTATION_KEY],

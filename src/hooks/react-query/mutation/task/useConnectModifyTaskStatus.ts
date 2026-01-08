@@ -11,9 +11,8 @@ export interface ModifyTaskStatusResponse {
   message: string;
 }
 
-export const useConnectModifyTaskStatus = (
-  service: ModifyTaskStatusService,
-) => {
+export const useConnectModifyTaskStatus = () => {
+  const service = new ModifyTaskStatusService();
   const queryClient = useQueryClient();
   return useMutation<
     ModifyTaskStatusResponse,

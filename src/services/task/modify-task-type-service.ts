@@ -8,7 +8,7 @@ import type {
 } from "../../hooks/react-query/mutation/task/useConnectModifyTaskType.ts";
 
 export class ModifyTaskTypeService extends NetworkService {
-  public static MUTATION_KEY = "MODIFY_TASK_TYPE";
+  public static readonly MUTATION_KEY = "MODIFY_TASK_TYPE";
 
   public async modifyTaskType(
     body: ModifyTaskTypeRequest,

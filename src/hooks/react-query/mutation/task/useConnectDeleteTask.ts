@@ -10,7 +10,8 @@ export interface DeleteTaskResponse {
   message: string;
 }
 
-export const useConnectDeleteTask = (service: DeleteTaskService) => {
+export const useConnectDeleteTask = () => {
+  const service = new DeleteTaskService();
   const queryClient = useQueryClient();
   return useMutation<DeleteTaskResponse, AxiosError, DeleteTaskRequest>({
     mutationKey: [DeleteTaskService.MUTATION_KEY],

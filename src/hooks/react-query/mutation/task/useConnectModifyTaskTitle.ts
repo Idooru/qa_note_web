@@ -11,7 +11,8 @@ export interface ModifyTaskTitleResponse {
   message: string;
 }
 
-export const useConnectModifyTaskTitle = (service: ModifyTaskTitleService) => {
+export const useConnectModifyTaskTitle = () => {
+  const service = new ModifyTaskTitleService();
   const queryClient = useQueryClient();
   return useMutation<
     ModifyTaskTitleResponse,

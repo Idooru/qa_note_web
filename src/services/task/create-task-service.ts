@@ -8,7 +8,7 @@ import { type QueryClient } from "@tanstack/react-query";
 import { FetchTasksService } from "./fetch-tasks-service.ts";
 
 export class CreateTaskService extends NetworkService {
-  public static readonly QUERY_KEY = "CREATE_TASK";
+  public static readonly MUTATION_KEY = "CREATE_TASK";
 
   public async createTask(
     body: CreateTaskRequest,
