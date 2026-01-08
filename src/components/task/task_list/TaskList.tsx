@@ -12,7 +12,6 @@ import {
 import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
 import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
-import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
 import type { ChangeTaskTuple } from "../../../data/task_data.ts";
 import { useConnectChangeTaskSeq } from "../../../hooks/react-query/mutation/task/useConnectChangeTaskSeq.ts";
 
@@ -20,12 +19,11 @@ const TaskList: FC = () => {
   const { year, month, day } = useToday();
   const startDate = `${year}-${month}-${day}`;
 
-  const fetchTasksService = new FetchTasksService();
   const {
     data: tasks = [],
     isLoading,
     isError,
-  } = useConnectFetchTasks(fetchTasksService, startDate, "full");
+  } = useConnectFetchTasks(startDate, "full");
 
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
   const [checkedTaskIds, setCheckedTaskIds] = useState<Set<string>>(new Set()); // 체크박스를 전부 체크하는 상태

@@ -9,8 +9,8 @@ import Memo from "../pages/Memo/Memo";
 import Idea from "../pages/Idea/Idea";
 import CreateTaskPage from "../pages/TaskPage/create_task_page/CreateTaskPage";
 import ShowTaskCalenderPage from "../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.tsx";
-import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
 
 const queryClient = new QueryClient();
 

@@ -1,22 +1,12 @@
-import {
-  Navigate,
-  Outlet,
-  useLocation,
-  useSearchParams,
-} from "react-router-dom";
+import { Navigate, Outlet, useMatch } from "react-router-dom";
+import { useTodayQuery } from "../../../hooks/useTodayQuery.ts";
 
 const TaskDateGuard = () => {
-  const location = useLocation();
-  const [params] = useSearchParams();
+  const todayQuery = useTodayQuery();
+  const isCalender = useMatch("/task/calender");
 
-  const hasDate =
-    params.get("year") && params.get("month") && params.get("day");
-
-  if (!hasDate) {
-    const now = new Date();
-    const query = `?year=${now.getFullYear()}&month=${now.getMonth() + 1}&day=${now.getDate()}`;
-
-    return <Navigate to={`${location.pathname}${query}`} replace />;
+  if (todayQuery !== "" && !isCalender) {
+    return <Navigate to={`${todayQuery}`} replace />;
   }
 
   return <Outlet />;
