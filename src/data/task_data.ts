@@ -16,6 +16,11 @@ export interface Task {
   complete: boolean;
 }
 
+export interface ChangeTaskTuple {
+  id: string;
+  seq: number;
+}
+
 export type TaskType = Task["type"];
 
 export const taskTypes: TaskType[] = [

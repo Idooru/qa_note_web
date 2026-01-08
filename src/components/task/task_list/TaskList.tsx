@@ -2,7 +2,6 @@ import { type FC, useEffect, useRef, useState } from "react";
 import TaskItem from "./task_item/TaskItem";
 import style from "./TaskList.module.css";
 import "../../../app/index.css";
-import { useTaskStore } from "../../../hooks/useTasks.ts";
 import EditingBar from "./editing_bar/EditingBar.tsx";
 import {
   DragDropContext,
@@ -14,18 +13,20 @@ import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
 import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
 import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
+import type { ChangeTaskTuple } from "../../../data/task_data.ts";
+import { ChangeTaskSeqService } from "../../../services/task/change-task-seq-service.ts";
+import { useConnectChangeTaskSeq } from "../../../hooks/react-query/mutation/task/useConnectChangeTaskSeq.ts";
 
 const TaskList: FC = () => {
-  const updateTasks = useTaskStore((state) => state.updateTasks);
   const { year, month, day } = useToday();
   const startDate = `${year}-${month}-${day}`;
 
-  const service = new FetchTasksService();
+  const fetchTasksService = new FetchTasksService();
   const {
     data: tasks = [],
     isLoading,
     isError,
-  } = useConnectFetchTasks(service, startDate, "full");
+  } = useConnectFetchTasks(fetchTasksService, startDate, "full");
 
   const [isEditingAllIds, setIsEditingAllIds] = useState(false); // 아이디를 전부 체크박스로 전환하는 상태
   const [checkedTaskIds, setCheckedTaskIds] = useState<Set<string>>(new Set()); // 체크박스를 전부 체크하는 상태
@@ -33,6 +34,10 @@ const TaskList: FC = () => {
   const listRef = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const prevLengthRef = useRef<number>(tasks.length);
+
+  const changeTaskSeqService = new ChangeTaskSeqService();
+  const { mutate: changeTaskSeq } =
+    useConnectChangeTaskSeq(changeTaskSeqService);
 
   useEffect(() => {
     const prevLength = prevLengthRef.current;
@@ -100,12 +105,14 @@ const TaskList: FC = () => {
     reorderedTasks.splice(result.destination.index, 0, moved);
 
     // 3. seq만 다시 부여 (1부터)
-    const tasksWithReorderedIds = reorderedTasks.map((task, index) => ({
-      ...task,
-      seq: index + 1,
-    }));
+    const ChangeTaskTuples: Array<ChangeTaskTuple> = reorderedTasks.map(
+      (task, index) => ({
+        id: task.id,
+        seq: index + 1,
+      }),
+    );
 
-    updateTasks(tasksWithReorderedIds);
+    changeTaskSeq({ tasks: ChangeTaskTuples });
   };
 
   /* 상태 처리 */
