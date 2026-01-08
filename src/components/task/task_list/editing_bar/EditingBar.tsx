@@ -3,6 +3,8 @@ import React, { type FC } from "react";
 import "../../../../app/index.css";
 import Button from "../../../common/button/Button.tsx";
 import { useTaskStore } from "../../../../hooks/useTasks.ts";
+import { ModifyTaskStatusService } from "../../../../services/task/modify-task-status-service.ts";
+import { useConnectModifyTaskStatus } from "../../../../hooks/react-query/mutation/task/useConnectModifyTaskStatus.ts";
 
 interface EditingBarProps {
   isEditingAllIds: boolean;
@@ -17,19 +19,23 @@ const EditingBar: FC<EditingBarProps> = ({
   setIsEditingAllIds,
   setCheckedTaskIds,
 }) => {
-  const modifyTaskStatus = useTaskStore((state) => state.modifyTaskStatus);
+  const ids = Array.from(checkedTaskIds);
+  // const modifyTaskStatus = useTaskStore((state) => state.modifyTaskStatus);
+  const modifyTaskStatusService = new ModifyTaskStatusService();
+  const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus(
+    modifyTaskStatusService,
+  );
+
   const deleteTask = useTaskStore((state) => state.deleteTask);
 
   const handleClickDone = () => {
-    checkedTaskIds.forEach((id) => modifyTaskStatus(id, true));
-    alert("선택한 테스크의 상태를 'done'로 변경하였습니다!");
+    modifyTaskStatus({ ids, status: true });
     setIsEditingAllIds(false);
     setCheckedTaskIds(new Set());
   };
 
   const handleClickNotDone = () => {
-    checkedTaskIds.forEach((id) => modifyTaskStatus(id, false));
-    alert("선택한 테스크의 상태를 'not done'로 변경하였습니다!");
+    modifyTaskStatus({ ids, status: false });
     setIsEditingAllIds(false);
     setCheckedTaskIds(new Set());
   };
