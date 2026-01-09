@@ -10,13 +10,13 @@ export interface DeleteTaskResponse {
   message: string;
 }
 
-export const useConnectDeleteTask = () => {
+export const useConnectDeleteTask = (startDate: string) => {
   const service = new DeleteTaskService();
   const queryClient = useQueryClient();
   return useMutation<DeleteTaskResponse, AxiosError, DeleteTaskRequest>({
     mutationKey: [DeleteTaskService.MUTATION_KEY],
     mutationFn: (body) => service.deleteTask(body),
-    onSuccess: (data) => service.handleSuccess(data, queryClient),
+    onSuccess: (data) => service.handleSuccess(data, queryClient, startDate),
     onError: (err) => service.handleError(err),
   });
 };

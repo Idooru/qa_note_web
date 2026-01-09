@@ -22,11 +22,20 @@ export class DeleteTaskService extends NetworkService {
     return res.data;
   }
 
+  private async updateSequence(startDate: string): Promise<void> {
+    await this.axiosInstance.patch(
+      `/api/v1/task/after-delete/start-date/${startDate}`,
+    );
+  }
+
   public async handleSuccess(
     data: ModifyTaskStatusResponse,
     queryClient: QueryClient,
+    startDate: string,
   ): Promise<void> {
     const { message } = data;
+
+    await this.updateSequence(startDate);
 
     await queryClient.invalidateQueries({
       queryKey: [FetchTasksService.QUERY_KEY],
