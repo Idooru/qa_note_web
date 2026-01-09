@@ -12,10 +12,10 @@ export interface FetchTasksResponse {
 }
 
 export const useConnectFetchTasks = (
-  service: FetchTasksService,
   startDate: string,
   mode: FetchTasksMode,
 ) => {
+  const service = new FetchTasksService();
   return useQuery<FetchTasksResponse, AxiosError, Task[]>({
     queryKey: [FetchTasksService.QUERY_KEY, startDate, mode],
     queryFn: () => service.fetchTasks(startDate, mode),

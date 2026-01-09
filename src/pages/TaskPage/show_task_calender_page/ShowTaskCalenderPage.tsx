@@ -5,7 +5,6 @@ import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import { parseDate } from "../../../utils/parse_date.ts";
 import "../../../app/index.css";
-import { FetchTasksService } from "../../../services/task/fetch-tasks-service.ts";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
 import { useToday } from "../../../hooks/useToday.ts";
 
@@ -19,12 +18,7 @@ const ShowTaskCalenderPage: FC = () => {
 
   const { year, month, day } = useToday();
   const startDate = `${year}-${month}-${day}`;
-  const service = new FetchTasksService();
-  const {
-    data: tasks = [],
-    // isLoading,
-    // isError,
-  } = useConnectFetchTasks(service, startDate, "month");
+  const { data: tasks = [] } = useConnectFetchTasks(startDate, "month");
 
   const handleClickDay = (date: Date) => {
     const { year, month, day } = parseDate(date);

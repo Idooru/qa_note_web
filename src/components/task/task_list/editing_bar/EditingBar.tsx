@@ -4,6 +4,7 @@ import "../../../../app/index.css";
 import Button from "../../../common/button/Button.tsx";
 import { useConnectModifyTaskStatus } from "../../../../hooks/react-query/mutation/task/useConnectModifyTaskStatus.ts";
 import { useConnectDeleteTask } from "../../../../hooks/react-query/mutation/task/useConnectDeleteTask.ts";
+import { useToday } from "../../../../hooks/useToday.ts";
 
 interface EditingBarProps {
   isEditingAllIds: boolean;
@@ -20,8 +21,10 @@ const EditingBar: FC<EditingBarProps> = ({
 }) => {
   const ids = Array.from(checkedTaskIds);
 
+  const { year, month, day } = useToday();
+  const startDate = `${year}-${month}-${day}`;
   const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus();
-  const { mutate: deleteTask } = useConnectDeleteTask();
+  const { mutate: deleteTask } = useConnectDeleteTask(startDate);
 
   const handleClickDone = () => {
     modifyTaskStatus({ ids, status: true });
@@ -37,6 +40,7 @@ const EditingBar: FC<EditingBarProps> = ({
 
   const handleClickDelete = () => {
     const isDelete = confirm("선택한 테스크를 삭제하시겠습니까?");
+
     if (isDelete) {
       deleteTask({ ids });
       setIsEditingAllIds(false);
