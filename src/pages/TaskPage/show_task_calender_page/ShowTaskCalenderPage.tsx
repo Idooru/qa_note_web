@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { parseDate } from "../../../utils/parse_date.ts";
 import "../../../app/index.css";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
+import { generateDateQuery } from "../../../utils/generate_date_query.ts";
 
 const isSameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() &&
@@ -22,7 +23,9 @@ const ShowTaskCalenderPage: FC = () => {
 
   const handleClickDay = (date: Date) => {
     const { year, month, day } = parseDate(date);
-    const newRoute = `${location.pathname.replace(/\/task\/calender$/, "/task")}?year=${year}&month=${month}&day=${day}`;
+    const query = generateDateQuery({ year, month, day });
+
+    const newRoute = `${location.pathname.replace("/task/calender", "/task")}${query}`;
     navigate(newRoute, { replace: true });
   };
 
