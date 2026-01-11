@@ -1,6 +1,7 @@
 import style from "../../../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.module.css";
 import type { FC } from "react";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
+import { formatDate } from "../../../utils/format_date.ts";
 
 const isSameMonth = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
@@ -16,7 +17,7 @@ const RenderYearTask: FC<RenderYearTaskProps> = ({ date, view }) => {
   let startDate: string;
 
   if (view === "year") {
-    startDate = `${date.getFullYear()}-${date.getMonth() + 1}`;
+    startDate = `${date.getFullYear()}-${formatDate(date.getMonth() + 1)}`;
   } else {
     startDate = `${date.getFullYear()}`;
   }

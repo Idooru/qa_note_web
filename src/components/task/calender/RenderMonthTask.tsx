@@ -1,6 +1,7 @@
 import style from "../../../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.module.css";
 import type { FC } from "react";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
+import { formatDate } from "../../../utils/format_date.ts";
 
 const isSameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() &&
@@ -12,7 +13,7 @@ interface RenderMonthTaskProps {
 }
 
 const RenderMonthTask: FC<RenderMonthTaskProps> = ({ date }) => {
-  const startDate = `${date.getFullYear()}-${date.getMonth() + 1}`;
+  const startDate = `${date.getFullYear()}-${formatDate(date.getMonth() + 1)}`;
   const { data: tasks = [] } = useConnectFetchTasks(startDate, "month");
 
   const filteredTasks = tasks.filter((task) =>
