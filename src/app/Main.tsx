@@ -3,7 +3,6 @@ import "./index.css";
 import Page from "./Page";
 import Side from "./Side";
 import TaskPage from "../pages/TaskPage/TaskPage";
-import Report from "../pages/Report/Report";
 import Summary from "../pages/Summary/Summary";
 import Memo from "../pages/Memo/Memo";
 import Idea from "../pages/Idea/Idea";
@@ -13,6 +12,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
 import { useState } from "react";
 import UpdateDateModal from "../components/modal/update_date_modal/UpdateDateModal.tsx";
+import ReportPage from "../pages/ReportPage/ReportPage.tsx";
+import ReportDateGuard from "../components/common/navigate/ReportDateGuard.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,7 +46,10 @@ const Main = () => {
               </Route>
             </Route>
 
-            <Route path="/report" element={<Report />} />
+            <Route path="/report" element={<ReportDateGuard />}>
+              <Route path="" element={<ReportPage />}></Route>
+            </Route>
+
             <Route path="/summary" element={<Summary />} />
             <Route path="/memo" element={<Memo />} />
             <Route path="/idea" element={<Idea />} />
