@@ -12,7 +12,18 @@ import ShowTaskCalenderPage from "../pages/TaskPage/show_task_calender_page/Show
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 0,
+      staleTime: 0, // 항상 stale
+      refetchOnMount: true, // 마운트 시 항상 재요청
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
+      retry: false,
+    },
+  },
+});
 
 const Main = () => {
   return (
