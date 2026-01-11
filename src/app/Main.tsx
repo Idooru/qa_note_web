@@ -11,6 +11,8 @@ import CreateTaskPage from "../pages/TaskPage/create_task_page/CreateTaskPage";
 import ShowTaskCalenderPage from "../pages/TaskPage/show_task_calender_page/ShowTaskCalenderPage.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import TaskDateGuard from "../components/common/navigate/TaskDateGuard.tsx";
+import { useState } from "react";
+import UpdateDateModal from "../components/modal/update_date_modal/UpdateDateModal.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,10 +28,12 @@ const queryClient = new QueryClient({
 });
 
 const Main = () => {
+  const [isModal, setIsModal] = useState(false);
+
   return (
     <div id="main">
       <QueryClientProvider client={queryClient}>
-        <Side />
+        <Side setIsModal={setIsModal} />
         <Page>
           <Routes>
             <Route path="/" element={<Navigate to="/task" replace />} />
@@ -47,6 +51,8 @@ const Main = () => {
             <Route path="/idea" element={<Idea />} />
           </Routes>
         </Page>
+
+        {isModal && <UpdateDateModal onClose={() => setIsModal(false)} />}
       </QueryClientProvider>
     </div>
   );

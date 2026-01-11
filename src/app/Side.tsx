@@ -1,12 +1,18 @@
 import Title from "../components/common/title/Title";
-import NavigatorList from "../components/nav/navigator_list/NavigatorList";
+import SideList from "../components/side/side_list/SideList";
 import "./index.css";
-import type { FC } from "react";
+import React, { type FC } from "react";
+import FloatingButton from "../components/side/floating_button/FloatingButton.tsx";
 
-const Side: FC = () => (
-  <nav id="nav">
+interface SideProps {
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Side: FC<SideProps> = ({ setIsModal }) => (
+  <nav id="side">
     <Title text={"QA Note"} />
-    <NavigatorList />
+    <SideList />
+    <FloatingButton setIsModal={setIsModal} />
   </nav>
 );
 

@@ -1,0 +1,45 @@
+.floating_button_area {
+  display: flex;
+  margin-top: auto;
+  position: relative;
+}
+
+.help_area {
+  position: absolute;
+  background-color: #363636;
+  border-radius: 20px;
+  left: 85px;
+  bottom: 85px;
+  width: 130px;
+  height: auto;
+  padding: 13px 15px;
+  color: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+/* 말풍선 꼬리 */
+.help_area::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* 말풍선 밖으로 */
+  left: 20%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #363636;
+}
+
+#floating_button {
+  width: 80px;
+  height: 80px;
+  margin-left: 7px;
+  margin-bottom: 7px;
+  background-color: #363636;
+  color: white;
+  font-size: 30px;
+  border-radius: 70px;
+  cursor: pointer;
+}

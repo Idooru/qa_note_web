@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import style from "./NavigatorItem.module.css";
+import style from "./SideItem.module.css";
 import { useNavigate } from "react-router-dom";
 import type { IconType } from "react-icons";
 
@@ -14,7 +14,7 @@ export interface NavigatorItemProps {
   item: NavItems;
 }
 
-const NavigatorItem: FC<NavigatorItemProps> = ({ item }) => {
+const SideItem: FC<NavigatorItemProps> = ({ item }) => {
   const navigate = useNavigate();
 
   const handleClickNav = () => {
@@ -36,4 +36,4 @@ const NavigatorItem: FC<NavigatorItemProps> = ({ item }) => {
   );
 };
 
-export default NavigatorItem;
+export default SideItem;
