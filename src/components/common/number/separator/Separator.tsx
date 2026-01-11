@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 const Separator = styled.div`
   margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  width: 14px;
-  height: 3px;
+  width: 25px;
+  height: 2px;
   background: black;
+  transform: rotate(-60deg);
+  border-radius: 1px;
 `;
 
 export default Separator;

@@ -10,7 +10,6 @@
   padding: 24px;
   width: 98%;
   max-width: none;
-  height: 100%;
   border-radius: 5px;
   border: none;
   box-shadow: 5px 5px 10px rgb(129, 129, 129);
@@ -43,7 +42,7 @@
 /* 날짜 타일 */
 .task_calendar :global(.react-calendar__tile) {
   margin: 5px 0;
-  height: 140px;
+  height: 120px;
   font-size: 18px;
   border-radius: 12px;
 }

@@ -14,6 +14,8 @@ import { useState } from "react";
 import UpdateDateModal from "../components/modal/update_date_modal/UpdateDateModal.tsx";
 import ReportPage from "../pages/ReportPage/ReportPage.tsx";
 import ReportDateGuard from "../components/common/navigate/ReportDateGuard.tsx";
+import DateProvider from "../components/common/date/DateProvider.tsx";
+import { useMidnightStorageReset } from "../hooks/useMidnightStorageReset.ts";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,33 +32,35 @@ const queryClient = new QueryClient({
 
 const Main = () => {
   const [isModal, setIsModal] = useState(false);
+  useMidnightStorageReset();
 
   return (
     <div id="main">
       <QueryClientProvider client={queryClient}>
-        <Side setIsModal={setIsModal} />
-        <Page>
-          <Routes>
-            <Route path="/" element={<Navigate to="/task" replace />} />
+        <DateProvider>
+          <Side setIsModal={setIsModal} />
+          <Page>
+            <Routes>
+              <Route path="/" element={<Navigate to="/task" replace />} />
 
-            <Route path="/task" element={<TaskDateGuard />}>
-              <Route path="" element={<TaskPage />}>
-                <Route path="create-task" element={<CreateTaskPage />} />
-                <Route path="calender" element={<ShowTaskCalenderPage />} />
+              <Route path="/task" element={<TaskDateGuard />}>
+                <Route path="" element={<TaskPage />}>
+                  <Route path="create-task" element={<CreateTaskPage />} />
+                  <Route path="calender" element={<ShowTaskCalenderPage />} />
+                </Route>
               </Route>
-            </Route>
 
-            <Route path="/report" element={<ReportDateGuard />}>
-              <Route path="" element={<ReportPage />}></Route>
-            </Route>
+              <Route path="/report" element={<ReportDateGuard />}>
+                <Route path="" element={<ReportPage />}></Route>
+              </Route>
 
-            <Route path="/summary" element={<Summary />} />
-            <Route path="/memo" element={<Memo />} />
-            <Route path="/idea" element={<Idea />} />
-          </Routes>
-        </Page>
-
-        {isModal && <UpdateDateModal onClose={() => setIsModal(false)} />}
+              <Route path="/summary" element={<Summary />} />
+              <Route path="/memo" element={<Memo />} />
+              <Route path="/idea" element={<Idea />} />
+            </Routes>
+          </Page>
+          {isModal && <UpdateDateModal onClose={() => setIsModal(false)} />}
+        </DateProvider>
       </QueryClientProvider>
     </div>
   );

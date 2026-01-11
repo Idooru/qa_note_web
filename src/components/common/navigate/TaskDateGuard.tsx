@@ -1,8 +1,8 @@
 import { Navigate, Outlet, useMatch } from "react-router-dom";
-import { useTodayQuery } from "../../../hooks/useTodayQuery.ts";
+import { useDateQuery } from "../../../hooks/useDateQuery.ts";
 
 const TaskDateGuard = () => {
-  const todayQuery = useTodayQuery();
+  const todayQuery = useDateQuery();
   const isCalender = useMatch("/task/calender");
 
   if (todayQuery !== "" && !isCalender) {

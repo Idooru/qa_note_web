@@ -8,14 +8,19 @@ import "../../../app/index.css";
 import { generateDateQuery } from "../../../utils/generate_date_query.ts";
 import RenderYearTask from "../../../components/task/calender/RenderYearTask.tsx";
 import RenderMonthTask from "../../../components/task/calender/RenderMonthTask.tsx";
+import { useDate } from "../../../hooks/useDate.ts";
+import { generateDateString } from "../../../utils/generate_date_string.ts";
 
 const ShowTaskCalenderPage: FC = () => {
   const navigate = useNavigate();
+  const { year, month, day, setDate } = useDate();
 
   const handleClickDay = (date: Date) => {
     const { year, month, day } = parseDate(date);
-    const query = generateDateQuery({ year, month, day });
+    const dateString = generateDateString({ year, month, day });
+    setDate(new Date(dateString));
 
+    const query = generateDateQuery({ year, month, day });
     const newRoute = `${location.pathname.replace("/task/calender", "/task")}${query}`;
     navigate(newRoute, { replace: true });
   };
@@ -23,6 +28,7 @@ const ShowTaskCalenderPage: FC = () => {
   return (
     <div className={`${style.calender_top} center`}>
       <Calendar
+        value={generateDateString({ year, month, day })}
         locale="en-US"
         calendarType="gregory"
         showNeighboringMonth={false}

@@ -1,8 +1,7 @@
 import type { FC } from "react";
-import "../../../app/index.css";
+import { useDate } from "../../../hooks/useDate.ts";
 import style from "./PageTitle.module.css";
-
-import { useToday } from "../../../hooks/useToday";
+import "../../../app/index.css";
 
 interface PageTitleProps {
   title: string;
@@ -10,7 +9,7 @@ interface PageTitleProps {
 }
 
 const PageTitle: FC<PageTitleProps> = ({ title, showToday }) => {
-  const { year, month, day } = useToday();
+  const { year, month, day } = useDate();
 
   return (
     <div className={`${style.title} main_border`}>

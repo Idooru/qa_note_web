@@ -10,14 +10,15 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import TaskSeqColumn from "./task_col/TaskSeqColumn.tsx";
-import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectFetchTasks } from "../../../hooks/react-query/query/useConnectFetchTasks.ts";
 import type { ChangeTaskTuple } from "../../../data/task_data.ts";
 import { useConnectChangeTaskSeq } from "../../../hooks/react-query/mutation/task/useConnectChangeTaskSeq.ts";
+import { useDate } from "../../../hooks/useDate.ts";
+import { generateDateString } from "../../../utils/generate_date_string.ts";
 
 const TaskList: FC = () => {
-  const { year, month, day } = useToday();
-  const startDate = `${year}-${month}-${day}`;
+  const { year, month, day } = useDate();
+  const startDate = generateDateString({ year, month, day });
 
   const {
     data: tasks = [],

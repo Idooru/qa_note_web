@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useTodayQuery } from "../../../hooks/useTodayQuery.ts";
+import { useDateQuery } from "../../../hooks/useDateQuery.ts";
 
 const ReportDateGuard = () => {
-  const todayQuery = useTodayQuery();
+  const todayQuery = useDateQuery();
 
   if (todayQuery !== "") {
     return <Navigate to={`${todayQuery}`} replace />;

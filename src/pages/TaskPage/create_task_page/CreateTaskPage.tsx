@@ -5,8 +5,9 @@ import style from "./CreateTaskPage.module.css";
 import TaskInputArea from "../../../components/task/task_input_area/TaskInputArea.tsx";
 import { taskFormReducer } from "./reducer/task_form_reducer.ts";
 import Button from "../../../components/common/button/Button.tsx";
-import { useToday } from "../../../hooks/useToday.ts";
 import { useConnectCreateTask } from "../../../hooks/react-query/mutation/task/useConnectCreateTask.ts";
+import { useDate } from "../../../hooks/useDate.ts";
+import { generateDateString } from "../../../utils/generate_date_string.ts";
 
 const CreateTaskPage: FC = () => {
   const [state, dispatch] = useReducer(taskFormReducer, {
@@ -14,12 +15,13 @@ const CreateTaskPage: FC = () => {
     taskTitle: "",
   });
 
-  const { year, month, day } = useToday();
+  const { year, month, day } = useDate();
   const { mutate: createTask } = useConnectCreateTask();
 
   const handleCreateButtonClick = () => {
     const { taskTitle, taskType } = state;
-    const startDate = `${year}-${month}-${day}`;
+    const startDate = generateDateString({ year, month, day });
+
     if (taskType === "") return alert("테스크의 타입이 선택되지 않았습니다!");
     if (!taskTitle.length) return alert("테스크의 제목이 입력되지 않았습니다!");
 

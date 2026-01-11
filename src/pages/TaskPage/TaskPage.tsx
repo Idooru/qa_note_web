@@ -11,15 +11,15 @@ import style from "./TaskPage.module.css";
 import TaskList from "../../components/task/task_list/TaskList";
 import ShowTaskCalenderPage from "./show_task_calender_page/ShowTaskCalenderPage.tsx";
 import { useMatch, useNavigate, useOutlet } from "react-router-dom";
-import { useToday } from "../../hooks/useToday.ts";
 import { generateDateQuery } from "../../utils/generate_date_query.ts";
+import { useDate } from "../../hooks/useDate.ts";
 
 const TaskPage: FC = () => {
   const navigate = useNavigate();
   const outlet = useOutlet();
   const isCreateTask = useMatch("/task/create-task");
   const isCalendar = useMatch("/task/calender");
-  const { year, month, day } = useToday();
+  const { year, month, day } = useDate();
   const todayQuery = generateDateQuery({ year, month, day });
 
   return (

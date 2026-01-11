@@ -1,5 +1,6 @@
 .number_card {
-  padding: 20px;
+  width: 65px;
+  height: 80px;
   background-color: #eaeaea;
   font-size: 36px;
   font-weight: 600;

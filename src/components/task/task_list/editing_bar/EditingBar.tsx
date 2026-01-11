@@ -4,7 +4,8 @@ import "../../../../app/index.css";
 import Button from "../../../common/button/Button.tsx";
 import { useConnectModifyTaskStatus } from "../../../../hooks/react-query/mutation/task/useConnectModifyTaskStatus.ts";
 import { useConnectDeleteTask } from "../../../../hooks/react-query/mutation/task/useConnectDeleteTask.ts";
-import { useToday } from "../../../../hooks/useToday.ts";
+import { useDate } from "../../../../hooks/useDate.ts";
+import { generateDateString } from "../../../../utils/generate_date_string.ts";
 
 interface EditingBarProps {
   isEditingAllIds: boolean;
@@ -21,8 +22,8 @@ const EditingBar: FC<EditingBarProps> = ({
 }) => {
   const ids = Array.from(checkedTaskIds);
 
-  const { year, month, day } = useToday();
-  const startDate = `${year}-${month}-${day}`;
+  const { year, month, day } = useDate();
+  const startDate = generateDateString({ year, month, day });
   const { mutate: modifyTaskStatus } = useConnectModifyTaskStatus();
   const { mutate: deleteTask } = useConnectDeleteTask(startDate);
 
